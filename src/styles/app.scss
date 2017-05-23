@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+//引入公共样式
+@import './utils/reset.scss';
+
+//引入组件样式
+@import './components/buttonCounter.scss';
+
+//引入页面样式
+@import './views/index.scss';
