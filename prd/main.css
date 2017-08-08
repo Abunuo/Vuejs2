@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/*引入公共样式*/
 /**
  * Yo框架全局Reset
  * Yo重置Mobile及高级浏览器上常见的差异
@@ -126,6 +127,7 @@ u,
 del {
   text-decoration: none; }
 
+/*引入组件样式*/
 button {
   width: .4rem;
   background: #fff;
@@ -136,3 +138,8 @@ button {
   font-size: .2rem; }
   #container p {
     line-height: .4rem; }
+  #container #gradient {
+    width: 200px;
+    height: 100px;
+    background: -webkit-gradient(linear, left top, right top, from(red), color-stop(orange), color-stop(yellow), color-stop(green), color-stop(blue), color-stop(indigo), to(violet));
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); }

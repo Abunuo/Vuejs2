@@ -11,9 +11,10 @@
       <p v-if="show">hello</p>
     </transition>
     <p v-if="show" transition="fade">
-      Molonogue 
+      Molonogue
     </p>
     <my-compontent :value="123">abunuo</my-compontent>
+    <div id="gradient"></div>
   </div>
 </template>
 

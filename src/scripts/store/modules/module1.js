@@ -12,6 +12,9 @@ const getters = {
 const mutations = {
   [type.CHANGEINDEX](state, index) {
     state.index = index;
+  },
+  CHANGELOGNAME(state) {
+    return state.index+state.name
   }
 }
 

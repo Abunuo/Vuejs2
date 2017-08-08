@@ -51,12 +51,13 @@ module.exports = {
         use: [
             'style-loader',
             'css-loader',
+            'postcss-loader'
         ]
       }, {
         test: /\.scss$/,
         loader: ET.extract({
           fallback: "style-loader",
-          use: ['css-loader','sass-loader']
+          use: ['css-loader','postcss-loader','sass-loader']
         })
       }, {
         test: /\.vue$/,

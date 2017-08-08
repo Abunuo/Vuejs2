@@ -1880,6 +1880,7 @@ exports.default = {
 //
 //
 //
+//
 
 /***/ }),
 /* 52 */
@@ -1960,17 +1961,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
   data: function data() {
-    return {};
+    return {
+      getLog1: 0
+    };
   },
 
   computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(['getLog', 'getName'])),
   methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(['log'])),
   components: {},
   mounted: function mounted() {
+    this.getLog1 = this.getLog;
     this.log(5);
     // this.$store.dispatch('log',4); 等同于this.log(4);
   }
 }; //
+//
 //
 //
 //
@@ -2025,7 +2030,7 @@ new _vue2.default({
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.log = undefined;
+exports.logName = exports.log = undefined;
 
 var _mutationsTypes = __webpack_require__(25);
 
@@ -2040,6 +2045,14 @@ var log = exports.log = function log(_ref) {
 
   // state.index.index = index+1;  //严格模式下只能使用 mutatsions 所以会报错
   commit(type.CHANGEINDEX, index);
+};
+
+var logName = exports.logName = function logName(_ref2) {
+  var commit = _ref2.commit,
+      state = _ref2.state;
+
+  // state.index.index = index+1;  //严格模式下只能使用 mutatsions 所以会报错
+  commit(type.CHANGELOGNAME);
 };
 
 /***/ }),
@@ -2071,6 +2084,8 @@ var _defineProperty2 = __webpack_require__(61);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+var _mutations;
+
 var _mutationsTypes = __webpack_require__(25);
 
 var type = _interopRequireWildcard(_mutationsTypes);
@@ -2090,9 +2105,11 @@ var getters = {
   }
 };
 
-var mutations = (0, _defineProperty3.default)({}, type.CHANGEINDEX, function (state, index) {
+var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, type.CHANGEINDEX, function (state, index) {
   state.index = index;
-});
+}), (0, _defineProperty3.default)(_mutations, 'CHANGELOGNAME', function CHANGELOGNAME(state) {
+  return state.index + state.name;
+}), _mutations);
 
 exports.default = {
   state: state,
@@ -3195,7 +3212,7 @@ exports = module.exports = __webpack_require__(102)(undefined);
 
 
 // module
-exports.push([module.i, "\n.slide-fade-enter-active[data-v-b22ae294] {\n  transition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-b22ae294] {\n  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-b22ae294], .slide-fade-leave-active[data-v-b22ae294] {\n  transform: translateX(50px);\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-fade-enter-active[data-v-b22ae294] {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-b22ae294] {\n  -webkit-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-b22ae294], .slide-fade-leave-active[data-v-b22ae294] {\n  -webkit-transform: translateX(50px);\n          transform: translateX(50px);\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -4343,7 +4360,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "30px"
     }
-  }, [_c('h5', [_vm._v(_vm._s(_vm.getLog))]), _vm._v(" "), _c('h5', [_vm._v(_vm._s(_vm.getName))])])
+  }, [_c('h5', [_vm._v("修改以前：" + _vm._s(_vm.getLog1))]), _vm._v(" "), _c('h5', [_vm._v("修改以后：" + _vm._s(_vm.getLog))]), _vm._v(" "), _c('h5', [_vm._v(_vm._s(_vm.getName))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -4405,11 +4422,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "transition": "fade"
     }
-  }, [_vm._v("\n    Molonogue \n  ")]) : _vm._e(), _vm._v(" "), _c('my-compontent', {
+  }, [_vm._v("\n    Molonogue\n  ")]) : _vm._e(), _vm._v(" "), _c('my-compontent', {
     attrs: {
       "value": 123
     }
-  }, [_vm._v("abunuo")])], 1)
+  }, [_vm._v("abunuo")]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "gradient"
+    }
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
