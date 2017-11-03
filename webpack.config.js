@@ -21,7 +21,7 @@ module.exports = {
     contentBase: __dirname + '/prd',
     port: 8000,
     inline: true,
-    // hot: true,
+    // hot: true, 
     // proxy: {
     //   '/rest/*': {
     //     target: 'http://localhost:8888',
