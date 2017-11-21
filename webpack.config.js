@@ -21,7 +21,7 @@ module.exports = {
     contentBase: __dirname + '/prd',
     port: 8000,
     inline: true,
-    // hot: true, 
+    // hot: true,
     // proxy: {
     //   '/rest/*': {
     //     target: 'http://localhost:8888',
@@ -45,7 +45,7 @@ module.exports = {
       }, {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: 'babel-loader'
       }, {
         test: /\.css$/,
         use: [
@@ -55,22 +55,24 @@ module.exports = {
         ]
       }, {
         test: /\.scss$/,
-        loader: ET.extract({
+        use: ET.extract({
           fallback: "style-loader",
           use: ['css-loader','postcss-loader','sass-loader']
         })
       }, {
         test: /\.vue$/,
         exclude: /node_modules/,
-        loader: 'vue-loader'
+        use: 'vue-loader'
       }, {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: '/images/',
-          limit: 1000
-        }
+        use: [{
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]',
+                outputPath: '/images/',
+                limit: 1000
+            }
+        }]
       }
     ]
   },

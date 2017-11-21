@@ -137,7 +137,8 @@ button {
   padding-left: .2rem;
   font-size: .2rem; }
   #container p {
-    line-height: .4rem; }
+    line-height: .4rem;
+    color: #f60; }
   #container #gradient {
     width: 200px;
     height: 100px;
