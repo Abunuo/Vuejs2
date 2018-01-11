@@ -38,7 +38,7 @@ module.exports = {
       {
         test: require.resolve('zepto'),   //将 zepto(amd) 格式转化为 commonjs 格式
         use: [
-          'exports-loader?window.Zepto',
+          'exports-loader?window.Zepto',  //将转化后的 zepto 变量应用到全局对象
           'script-loader'
         ]
 
@@ -77,7 +77,7 @@ module.exports = {
     ]
   },
   plugins: [
-    // new webpack.ProvidePlugin({   //全局挂在变量，需要在 index.html 中手动引入相应的文件；(在文件中使用才会用到)
+    // new webpack.ProvidePlugin({   //自动加载模块，前提有该模块
     //   $: "zepto",
     //   _: 'lodash'
     // }),
