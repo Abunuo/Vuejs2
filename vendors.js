@@ -1,6 +1,6 @@
 /**
  * 公共资源打包目录
- * by liangmq
+ * by Monologue
  * @type {Array}
  */
 module.exports  = [

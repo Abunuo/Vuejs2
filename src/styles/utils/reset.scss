@@ -159,3 +159,14 @@ u,
 del {
     text-decoration: none;
 }
+
+/* 兼容 iphoneX */
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3){
+
+    .fixed_bottom{  //底部按钮浏览器驻留
+        border-bottom: 0 solid #fff;
+        border-bottom-width: constant(safe-area-inset-bottom);
+        border-bottom-width: env(safe-area-inset-bottom);
+    }
+
+}

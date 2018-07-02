@@ -127,6 +127,13 @@ u,
 del {
   text-decoration: none; }
 
+/* 兼容 iphoneX */
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .fixed_bottom {
+    border-bottom: 0 solid #fff;
+    border-bottom-width: constant(safe-area-inset-bottom);
+    border-bottom-width: env(safe-area-inset-bottom); } }
+
 /*引入组件样式*/
 button {
   width: .4rem;
