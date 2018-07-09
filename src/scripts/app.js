@@ -14,4 +14,4 @@ new Vue({
   router,
   store,
   // el: '#app',
-}).$mount('router-view'); //等同于 el: '#app'  https://blog.csdn.net/c2311156c/article/details/80415633
+}).$mount('router-view'); //等同于 el: '#app'  https://segmentfault.com/a/1190000009467029
