@@ -44,7 +44,7 @@
         	// 在这里使用起来就像同步代码那样直观
         	console.log('start');
         	var a = await sleep(3000);
-          console.log(a);
+            console.log(a);
         	console.log('end');
         };
         start();

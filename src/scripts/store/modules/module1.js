@@ -1,4 +1,4 @@
-import * as type from '../mutations-types.js';
+import type from '../mutations-types.js';
 
 const state = {
   index: 2,
@@ -14,7 +14,7 @@ const mutations = {
     state.index = index;
   },
   CHANGELOGNAME(state) {
-    return state.index+state.name
+    state.name = state.name+state.index;
   }
 }
 

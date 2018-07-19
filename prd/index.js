@@ -451,9 +451,16 @@ module.exports = function (it) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-var CHANGEINDEX = exports.CHANGEINDEX = 'CHANGEINDEX';
+// export const CHANGEINDEX = 'CHANGEINDEX';
+// export const CHANGELOGNAME = 'CHANGELOGNAME';
+var mutationsType = {
+    CHANGEINDEX: 'CHANGEINDEX', //改变 store index(传参)
+    CHANGELOGNAME: 'CHANGELOGNAME' //改变 store name
+};
+
+exports.default = mutationsType;
 
 /***/ }),
 /* 28 */
@@ -1833,21 +1840,21 @@ var _vuex2 = _interopRequireDefault(_vuex);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = new _vueRouter2.default({
+var router = new _vueRouter2.default({
   routes: [{
     path: '/',
     component: _index2.default
   }, {
     path: '/second',
-    component: _second2.default
-    // children: {         //配置子路由
-    //   path: '/second',
+    component: _second2.default,
+    // children: [{         //配置子路由 ,是个路由对象数组
+    //   path: 'second',
     //   component: second,
-    // },
+    // }],
 
-    // meta: {             //配置属性
-    //   requiresAuth: true
-    // },
+    meta: { //配置属性 可用老页面拦截，判断是否登录
+      requiresAuth: true
+    }
 
     // alias: ['/two'],    //起别名
 
@@ -1860,6 +1867,31 @@ exports.default = new _vueRouter2.default({
     component: _vuex2.default
   }]
 });
+
+router.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.requiresAuth;
+  })) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    // if (!auth.loggedIn()) {
+    //   next({
+    //     path: '/vuex',
+    //     query: { redirect: to.fullPath }
+    //   })
+    // } else {
+    //   next()
+    // }
+    next({
+      // path: '/second',
+      // query: { redirect: to.fullPath }
+    });
+  } else {
+    next(); // 确保一定要调用 next()
+  }
+});
+
+exports.default = router;
 
 /***/ }),
 /* 48 */
@@ -2225,19 +2257,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   data: function data() {
     return {
-      getLog1: 0
+      getLog1: new Number(),
+      getName1: new String()
     };
   },
 
   computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(['getLog', 'getName'])),
-  methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(['log'])),
+  methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(['log', 'logName'])),
   components: {},
   mounted: function mounted() {
     this.getLog1 = this.getLog;
+    this.getName1 = this.getName;
     this.log(5);
-    // this.$store.dispatch('log',4); 等同于this.log(4);
+    this.logName();
+    //this.$store.dispatch('log',4); //等同于this.log(4);
   }
 }; //
+//
 //
 //
 //
@@ -2282,7 +2318,7 @@ new _vue2.default({
   router: _router2.default,
   store: _store2.default
   // el: '#app',
-}).$mount('router-view');
+}).$mount('router-view'); //等同于 el: '#app'  https://segmentfault.com/a/1190000009467029
 
 /***/ }),
 /* 59 */
@@ -2298,25 +2334,25 @@ exports.logName = exports.log = undefined;
 
 var _mutationsTypes = __webpack_require__(27);
 
-var type = _interopRequireWildcard(_mutationsTypes);
+var _mutationsTypes2 = _interopRequireDefault(_mutationsTypes);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var log = exports.log = function log(_ref) {
   var commit = _ref.commit,
       state = _ref.state;
   var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-  // state.index.index = index+1;  //严格模式下只能使用 mutatsions 所以会报错
-  commit(type.CHANGEINDEX, index);
+  // state.module1.index = index+1;  //严格模式下只能使用 mutations 所以会报错
+  commit(_mutationsTypes2.default.CHANGEINDEX, index);
 };
 
 var logName = exports.logName = function logName(_ref2) {
   var commit = _ref2.commit,
       state = _ref2.state;
 
-  // state.index.index = index+1;  //严格模式下只能使用 mutatsions 所以会报错
-  commit(type.CHANGELOGNAME);
+  // state.module1.index = index+1;  //严格模式下只能使用 mutations 所以会报错
+  commit(_mutationsTypes2.default.CHANGELOGNAME);
 };
 
 /***/ }),
@@ -2352,9 +2388,7 @@ var _mutations;
 
 var _mutationsTypes = __webpack_require__(27);
 
-var type = _interopRequireWildcard(_mutationsTypes);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _mutationsTypes2 = _interopRequireDefault(_mutationsTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2369,10 +2403,10 @@ var getters = {
   }
 };
 
-var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, type.CHANGEINDEX, function (state, index) {
+var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, _mutationsTypes2.default.CHANGEINDEX, function (state, index) {
   state.index = index;
 }), (0, _defineProperty3.default)(_mutations, 'CHANGELOGNAME', function CHANGELOGNAME(state) {
-  return state.index + state.name;
+  state.name = state.name + state.index;
 }), _mutations);
 
 exports.default = {
@@ -4675,7 +4709,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "30px"
     }
-  }, [_c('h5', [_vm._v("修改以前：" + _vm._s(_vm.getLog1))]), _vm._v(" "), _c('h5', [_vm._v("修改以后：" + _vm._s(_vm.getLog))]), _vm._v(" "), _c('h5', [_vm._v(_vm._s(_vm.getName))])])
+  }, [_c('h5', [_vm._v("index修改以前：" + _vm._s(_vm.getLog1))]), _vm._v(" "), _c('h5', [_vm._v("index修改以后：" + _vm._s(_vm.getLog))]), _vm._v(" "), _c('h5', [_vm._v("name修改以前:" + _vm._s(_vm.getName1))]), _vm._v(" "), _c('h5', [_vm._v("name修改以后:" + _vm._s(_vm.getName))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
