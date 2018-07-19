@@ -15,7 +15,7 @@ const router = new VueRouter({
       component: second,
       // children: [{         //配置子路由 ,是个路由对象数组
       //   path: 'second',
-      //   component: second,``
+      //   component: second,
       // }],
 
       meta: {             //配置属性 可用老页面拦截，判断是否登录
