@@ -27,7 +27,7 @@ const router = new VueRouter({
       // redirect: '/',      //路由重定向
     }, {
       path: '/async',
-      component: async
+      component: async 
     }, {
       path: '/vuex',
       component: vuex
