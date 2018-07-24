@@ -6,13 +6,12 @@
     <br>
     <button @click="show = !show" v-bind:style="{color:'red', fontSize:'14px', width:'auto', lineHeight:'30px', marginTop:'.2rem'}"> 点击我看动画 </button>
     <transition name="slide-fade">
-      <img v-if="show" src="../../images/img.png"/>
+      <img v-if="show" src="../../../images/img.png"/>
     </transition>
   </h3>
 </template>
 
 <script>
-import index from './second.vue';
 
   export default {
     data() {

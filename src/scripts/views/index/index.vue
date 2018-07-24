@@ -32,7 +32,7 @@
 </style>
 
 <script>
-  import buttonCounter from '../components/buttonCounter.vue';
+  import buttonCounter from '../../components/buttonCounter.vue';
   export default {
     data() {
       return {

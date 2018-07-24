@@ -1,37 +1,16 @@
 import VueRouter from 'vue-router';
 
-import index from '../views/index.vue';
-import second from '../views/second.vue';
-import async from '../views/async.vue';
-import vuex from '../views/vuex.vue';
+import index from '../views/index/route.js';
+import second from '../views/second/route.js';
+import async from '../views/async/route.js';
+import vuex from '../views/vuex/route.js';
 
 const router = new VueRouter({
   routes: [
-    {
-      path: '/',
-      component: index,
-    }, {
-      path: '/second',
-      component: second,
-      // children: [{         //配置子路由 ,是个路由对象数组
-      //   path: 'second',
-      //   component: second,
-      // }],
-
-      meta: {             //配置属性 可用老页面拦截，判断是否登录
-        requiresAuth: true
-      },
-
-      // alias: ['/two'],    //起别名
-
-      // redirect: '/',      //路由重定向
-    }, {
-      path: '/async',
-      component: async
-    }, {
-      path: '/vuex',
-      component: vuex
-    }
+      index,
+      second,
+      async,
+      vuex,
   ]
 });
 
