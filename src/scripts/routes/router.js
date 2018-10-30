@@ -1,16 +1,20 @@
 import VueRouter from 'vue-router';
 
+import error from '../views/error/route.js';
 import index from '../views/index/route.js';
 import second from '../views/second/route.js';
 import async from '../views/async/route.js';
 import vuex from '../views/vuex/route.js';
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
       index,
       second,
       async,
       vuex,
+
+      error//404一定放在最下面
   ]
 });
 

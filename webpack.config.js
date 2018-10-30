@@ -32,6 +32,7 @@ module.exports = {
     //   }
     // },
     // host:'0.0.0.0'
+    historyApiFallback:true  //开发的时候用，生产环境服务器端配置  //当路由使用 history 是设置此项为 true（解决直接跳转子路由返回 404 问题）
   },
   module: {
     rules: [
