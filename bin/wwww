@@ -1,0 +1,26 @@
+/**
+ *
+ * 利用 express 中间件处理 vue mode：history
+ *
+ */
+
+var http = require('http');
+var express = require('express');
+var path = require('path');
+var history = require('connect-history-api-fallback');
+
+//方式一
+var connect = require('connect');
+var app = connect()
+  .use(history())
+
+//方式二
+// var app = express();
+// app.use(history());
+
+app.use(express.static(path.join(__dirname, '../prd')));
+
+
+http.createServer(app).listen(8000, '127.0.0.1', function(){
+ console.log('server is open: http://127.0.0.1:8000');
+});
