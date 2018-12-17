@@ -1,5 +1,5 @@
 <template>
-  <button v-on:click="buttonClick">{{ counter }}</button>
+  <button v-on:click="buttonClick" href=123>{{ counter }}</button>
 </template>
 
 <script>

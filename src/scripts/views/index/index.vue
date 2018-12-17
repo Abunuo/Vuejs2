@@ -1,10 +1,10 @@
 <template>
   <div id="container">
     <p>{{ total }}</p>
-    <button-counter v-on:increment="incrementTotal"></button-counter>
+    <button-counter  v-autoSub v-on:increment="incrementTotal"></button-counter>
     <button-counter v-on:increment="incrementTotal" v-bind:name = "a"></button-counter>
     <button-counter v-on:increment="incrementTotal" v-bind:age = "'我是第二个'"></button-counter>
-    <router-link to="/second">点我跳转第二个</router-link>
+    <router-link ref="goTo" to="/second">点我跳转第二个</router-link>
     <br>
     <button @click="show = !show" v-bind:style="{color:'red', fontSize:'14px', width:'auto', lineHeight:'30px', marginTop:'.2rem'}"> 点击我看动画 </button>
     <transition name="slide-fade">
@@ -43,18 +43,25 @@
       }
     },
     created() {
-        this.$on('update', function (id) {
-          console.log('updateTotal: '+id)
+        this.$on('update', function (val) {
+          console.log('updateTotal: '+val)
         })
         this.$watch('total',function(newVal, oldVal){
             console.log('data is change:'+oldVal+'->'+newVal);
         })
-        this.$watch('show',function(newVal, oldVal){
-            console.log('show is change:'+oldVal+'->'+newVal);
+        this.$watch('show',function(newVal, oldVal){  //等同于下面的 watch
+            console.log('$watch-show is change:'+oldVal+'->'+newVal);
         })
     },
     computed: {  //计算属性
 
+    },
+    directives: {  //自定义指令
+        autoSub: {
+            inserted: (el) => {
+                el.click();
+            }
+        }
     },
     methods: {   //事件方法
       incrementTotal: function () {
@@ -93,6 +100,11 @@
     },
     mounted() {
 
+    },
+    watch: {
+        show: function(newVal, oldVal){ //等同于上面的事件监听
+            console.log('watch-show is change:'+oldVal+'->'+newVal);
+        }
     }
   }
 </script>

@@ -10,6 +10,18 @@ import store from './store/store.js';
 Vue.use(VueRouter);
 // Vue.use(_);
 
+
+//注册全局指令   获取该指令可以用 Vue.directive('my-directive')
+// Vue.directive('my-directive', {
+//   bind: function () {},
+//   inserted: function () {},
+//   update: function () {},
+//   componentUpdated: function () {},
+//   unbind: function () {}
+// })
+
+
+
 new Vue({
   router,
   store,
