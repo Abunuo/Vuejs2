@@ -2097,7 +2097,8 @@ exports.default = {
 
       // template: '<h2>abc</h2>' //利用 template
 
-      render: function render(h) {
+      render: function render(createElement) {
+        var h = arguments[0];
         //安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
         return h(
           'h2',

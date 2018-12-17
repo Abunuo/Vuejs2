@@ -24,6 +24,7 @@
       buttonClick: function () {
         this.counter += 1;
         this.$emit('increment');
+        this.$emit('Monologue');
         if(this.name) {
           console.log(this.name);
         } else if(this.age) {

@@ -8,7 +8,7 @@
     <br>
     <button @click="show = !show" v-bind:style="{color:'red', fontSize:'14px', width:'auto', lineHeight:'30px', marginTop:'.2rem'}"> 点击我看动画 </button>
     <transition name="slide-fade">
-      <p v-if="show">hello</p>
+      <p v-show="show">hello</p>
     </transition>
     <p v-if="show" transition="fade">
       Molonogue
@@ -42,6 +42,17 @@
         show: true
       }
     },
+    created() {
+        this.$on('update', function (id) {
+          console.log('updateTotal: '+id)
+        })
+        this.$watch('total',function(newVal, oldVal){
+            console.log('data is change:'+oldVal+'->'+newVal);
+        })
+        this.$watch('show',function(newVal, oldVal){
+            console.log('show is change:'+oldVal+'->'+newVal);
+        })
+    },
     computed: {  //计算属性
 
     },
@@ -49,6 +60,9 @@
       incrementTotal: function () {
         this.total += 1;
       }
+    },
+    updated() {
+        this.$emit('update',this.total)
     },
     components: {  //组件
         buttonCounter,
@@ -68,7 +82,10 @@
 
           render (createElement) {  //安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
             return (
-              <h2>{this.$slots.default[0].text}+{this.$vnode.data.attrs.value}</h2>
+                <div>
+                    <h2>{this.$slots.default[0].text}+{this.$vnode.data.attrs.value}</h2>
+                    <h2>等同于：{this.$slots.default[0].text}+{this.$attrs.value}</h2>
+                </div>
             )
           }
 
