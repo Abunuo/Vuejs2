@@ -66,7 +66,7 @@
 
           // template: '<h2>abc</h2>' //利用 template
 
-          render (h) {  //安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
+          render (createElement) {  //安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
             return (
               <h2>{this.$slots.default[0].text}+{this.$vnode.data.attrs.value}</h2>
             )
