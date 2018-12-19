@@ -5,6 +5,7 @@ import index from '../views/index/route.js';
 import second from '../views/second/route.js';
 import async from '../views/async/route.js';
 import vuex from '../views/vuex/route.js';
+import dataORcomputed from '../views/dataORcomputed/route.js';
 
 const router = new VueRouter({
   mode: 'history',
@@ -13,6 +14,7 @@ const router = new VueRouter({
       second,
       async,
       vuex,
+      dataORcomputed,
 
       error//404一定放在最下面
   ]
