@@ -134,6 +134,20 @@ del {
     border-bottom-width: constant(safe-area-inset-bottom);
     border-bottom-width: env(safe-area-inset-bottom); } }
 
+/* 兼容 iphone xr */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  .fixed_bottom {
+    border-bottom: 0 solid #fff;
+    border-bottom-width: constant(safe-area-inset-bottom);
+    border-bottom-width: env(safe-area-inset-bottom); } }
+
+/* 兼容 iphone xs Max */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  .fixed_bottom {
+    border-bottom: 0 solid #fff;
+    border-bottom-width: constant(safe-area-inset-bottom);
+    border-bottom-width: env(safe-area-inset-bottom); } }
+
 /*引入组件样式*/
 button {
   width: .4rem;

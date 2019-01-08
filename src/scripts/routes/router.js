@@ -7,6 +7,7 @@ import async from '../views/async/route.js';
 import vuex from '../views/vuex/route.js';
 import dataORcomputed from '../views/dataORcomputed/route.js';
 import grid from '../views/grid/route.js';
+import html2canvas from '../views/html2canvas/route.js';
 
 const router = new VueRouter({
   mode: 'history',
@@ -17,6 +18,7 @@ const router = new VueRouter({
       vuex,
       dataORcomputed,
       grid,
+      html2canvas,
 
       error//404一定放在最下面
   ]

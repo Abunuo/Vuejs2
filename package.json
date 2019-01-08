@@ -46,6 +46,7 @@
   "dependencies": {
     "connect": "^3.6.6",
     "connect-history-api-fallback": "^1.5.0",
-    "ejs": "^2.6.1"
+    "ejs": "^2.6.1",
+    "html2canvas": "^1.0.0-alpha.12"
   }
 }
