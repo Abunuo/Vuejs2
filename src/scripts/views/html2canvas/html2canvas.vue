@@ -1,17 +1,18 @@
 <template lang="html">
     <div class="html-wrap">
-        <div v-show="!isCanvas" class="body-wrap">
+        <div class="body-wrap" id="body-wrap">
             <h1>html</h1>
             <img src="../../../images/img.png" alt="">
             <p class="label">我是图片下面文字</p>
             <div class="content">
                 <p>晋江文学城作者Priest原著「729声工场」出品广播剧《杀破狼》已全部完结，在一年多的更新中，我们收获了无数的爱。为了回馈听众的支持，我们将高清版原剧音频、未公开番外</p>
             </div>
+            <strong></strong>
         </div>
-        <div v-show="isCanvas" class="canvas-wrap">
+        <div class="canvas-wrap">
             <img :src="canvas" alt="">
-            <a class="download" download :href="canvas">下载图片</a>
         </div>
+        <a class="download" download :href="canvas">下载图片</a>
     </div>
 </template>
 
@@ -24,12 +25,15 @@
                 canvas: ''
             }
         },
-        created() {
-            var _this = this,
-                htmlElm = $('.body-wrap');
-            html2canvas(document.body, {
+        mounted() {
+            var _this = this;
+            html2canvas(document.getElementById('body-wrap'), {
+                scale: 2, // 添加的scale 参数
                 width: '100%',
+                logging: true, //日志开关，便于查看html2canvas的内部执行流程
+                useCORS:true,
             }).then(function(canvas) {
+                console.log(canvas);
                 _this.isCanvas = true;
                 _this.canvas = canvas.toDataURL();
             });
@@ -56,8 +60,10 @@
     }
     .body-wrap, .canvas-wrap {
         display: flex;
-        width: 100%;
-        height: 100%;
+        width: 300px;
+        height: 400px;
+        margin-right: 40px;
+        border: 1px solid #dee0e1;
         flex-direction: column;
         align-items: center;
     }

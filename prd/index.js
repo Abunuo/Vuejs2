@@ -5754,11 +5754,11 @@ exports.default = {
         };
     },
     created: function created() {
-        var _this = this,
-            htmlElm = $('.body-wrap');
+        var _this = this;
         (0, _html2canvas2.default)(document.body, {
             width: '100%'
         }).then(function (canvas) {
+            console.log(canvas);
             _this.isCanvas = true;
             _this.canvas = canvas.toDataURL();
         });
@@ -12935,7 +12935,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (!_vm.isCanvas),
       expression: "!isCanvas"
     }],
-    staticClass: "body-wrap"
+    staticClass: "body-wrap",
+    attrs: {
+      "id": "body-wrap"
+    }
   }, [_c('h1', [_vm._v("html")]), _vm._v(" "), _c('img', {
     attrs: {
       "src": __webpack_require__(39),
