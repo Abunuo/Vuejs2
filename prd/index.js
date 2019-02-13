@@ -5753,10 +5753,13 @@ exports.default = {
             canvas: ''
         };
     },
-    created: function created() {
+    mounted: function mounted() {
         var _this = this;
-        (0, _html2canvas2.default)(document.body, {
-            width: '100%'
+        (0, _html2canvas2.default)(document.getElementById('body-wrap'), {
+            scale: 2, // 添加的scale 参数
+            width: '100%',
+            logging: true, //日志开关，便于查看html2canvas的内部执行流程
+            useCORS: true
         }).then(function (canvas) {
             console.log(canvas);
             _this.isCanvas = true;
@@ -5764,6 +5767,7 @@ exports.default = {
         });
     }
 }; //
+//
 //
 //
 //
@@ -8357,7 +8361,7 @@ exports = module.exports = __webpack_require__(38)(undefined);
 
 
 // module
-exports.push([module.i, "\n.html-wrap[data-v-b965c35a] {\n    width: 100%;\n    height: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-size: 18px;\n}\n.html-wrap[data-v-b965c35a]::after {\n    display:block;\n    content: '';\n    height: 0;\n    clear: both;\n    visibility: hidden;\n    overflow:hidden;\n}\n.body-wrap[data-v-b965c35a], .canvas-wrap[data-v-b965c35a] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 100%;\n    height: 100%;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\nimg[data-v-b965c35a] {\n    width: 100px;\n}\n.canvas-wrap img[data-v-b965c35a] {\n    width: 100%;\n    height: 100%;\n}\n.content[data-v-b965c35a] {\n    width: 100%;\n    text-indent: 1em;\n    font-size: 14px;\n    margin-top: 10px;\n    position: relative;\n}\n.content[data-v-b965c35a]::after {\n    display: block;\n    content: '';\n    width: 50px;\n    height: 100%;\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    background: url(" + __webpack_require__(39) + ")no-repeat center bottom;\n    background-size: 80% auto;\n    z-index: -1;\n}\n.download[data-v-b965c35a] {\n    position: fixed;\n    top: 50px;\n    left: 50px;\n}\n", ""]);
+exports.push([module.i, "\n.html-wrap[data-v-b965c35a] {\n    width: 100%;\n    height: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-size: 18px;\n}\n.html-wrap[data-v-b965c35a]::after {\n    display:block;\n    content: '';\n    height: 0;\n    clear: both;\n    visibility: hidden;\n    overflow:hidden;\n}\n.body-wrap[data-v-b965c35a], .canvas-wrap[data-v-b965c35a] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: 300px;\n    height: 400px;\n    margin-right: 40px;\n    border: 1px solid #dee0e1;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\nimg[data-v-b965c35a] {\n    width: 100px;\n}\n.canvas-wrap img[data-v-b965c35a] {\n    width: 100%;\n    height: 100%;\n}\n.content[data-v-b965c35a] {\n    width: 100%;\n    text-indent: 1em;\n    font-size: 14px;\n    margin-top: 10px;\n    position: relative;\n}\n.content[data-v-b965c35a]::after {\n    display: block;\n    content: '';\n    width: 50px;\n    height: 100%;\n    position: absolute;\n    right: 0;\n    bottom: 0;\n    background: url(" + __webpack_require__(39) + ")no-repeat center bottom;\n    background-size: 80% auto;\n    z-index: -1;\n}\n.download[data-v-b965c35a] {\n    position: fixed;\n    top: 50px;\n    left: 50px;\n}\n", ""]);
 
 // exports
 
@@ -12928,13 +12932,22 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "html-wrap"
-  }, [_c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (!_vm.isCanvas),
-      expression: "!isCanvas"
-    }],
+  }, [_vm._m(0, false, false), _vm._v(" "), _c('div', {
+    staticClass: "canvas-wrap"
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.canvas,
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('a', {
+    staticClass: "download",
+    attrs: {
+      "download": "",
+      "href": _vm.canvas
+    }
+  }, [_vm._v("下载图片")])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "body-wrap",
     attrs: {
       "id": "body-wrap"
@@ -12946,30 +12959,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "label"
-  }, [_vm._v("我是图片下面文字")]), _vm._v(" "), _vm._m(0, false, false)]), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.isCanvas),
-      expression: "isCanvas"
-    }],
-    staticClass: "canvas-wrap"
-  }, [_c('img', {
-    attrs: {
-      "src": _vm.canvas,
-      "alt": ""
-    }
-  }), _vm._v(" "), _c('a', {
-    staticClass: "download",
-    attrs: {
-      "download": "",
-      "href": _vm.canvas
-    }
-  }, [_vm._v("下载图片")])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  }, [_vm._v("我是图片下面文字")]), _vm._v(" "), _c('div', {
     staticClass: "content"
-  }, [_c('p', [_vm._v("晋江文学城作者Priest原著「729声工场」出品广播剧《杀破狼》已全部完结，在一年多的更新中，我们收获了无数的爱。为了回馈听众的支持，我们将高清版原剧音频、未公开番外")])])
+  }, [_c('p', [_vm._v("晋江文学城作者Priest原著「729声工场」出品广播剧《杀破狼》已全部完结，在一年多的更新中，我们收获了无数的爱。为了回馈听众的支持，我们将高清版原剧音频、未公开番外")])]), _vm._v(" "), _c('strong')])
 }]}
 module.exports.render._withStripped = true
 if (false) {
