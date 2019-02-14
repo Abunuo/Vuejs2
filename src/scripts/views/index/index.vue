@@ -32,7 +32,12 @@
 </style>
 
 <script>
+  import Debug from 'debug';
   import buttonCounter from '../../components/buttonCounter.vue';
+
+  const debug = Debug('vue:index');
+  const _debug = Debug('vue:_index');
+
   export default {
     data() {
       return {
@@ -43,6 +48,8 @@
       }
     },
     created() {
+        debug('index created');
+        _debug('_index created');
         this.$on('update', function (val) {
           console.log('updateTotal: '+val)
         })

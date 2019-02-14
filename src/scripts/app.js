@@ -7,6 +7,16 @@ import VueRouter from 'vue-router';
 import router from './routes/router.js';
 import store from './store/store.js';
 
+//引入 debug，浏览器需要设置 localStorage.debug
+localStorage.debug = 'vue:*';
+
+//根据开发状态区别是否运行 vue-devtools
+if (process.env.NODE_ENV == 'product') {
+    Vue.config.devtools = true;
+} else {
+    Vue.config.devtools = false;
+}
+
 Vue.use(VueRouter);
 // Vue.use(_);
 
