@@ -8,5 +8,6 @@ module.exports  = [
   'lodash',
   'vue',
   'vue-router',
-  'vue-resource'
+  'vue-resource',
+  'debug'
 ]
