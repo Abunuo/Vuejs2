@@ -10,7 +10,8 @@ module.exports = {
   },
   output: {
     path: __dirname + '/prd',
-    filename: "[name].js"
+    filename: "[name].js",
+    chunkFilename:'chunkJS/[name].js'
   },
   resolve: {
       alias: {

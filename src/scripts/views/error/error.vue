@@ -7,7 +7,7 @@
 <script>
   exports.default = {
     data() {
-
+        return {}
     },
     computed: {
 

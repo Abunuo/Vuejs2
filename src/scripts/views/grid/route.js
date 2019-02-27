@@ -1,4 +1,5 @@
-import grid from './grid.vue';
+//import grid from './grid.vue';
+const grid = r => require.ensure([], () => r(require('./grid.vue')));
 
 export default {
     path: '/grid',

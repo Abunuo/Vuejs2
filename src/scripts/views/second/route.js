@@ -1,4 +1,6 @@
-import second from './second.vue';
+//import second from './second.vue';
+const second = r => require.ensure([], () => r(require('./second.vue')));
+
 
 export default {
     path: '/second',
