@@ -1,5 +1,5 @@
 //import vuex from './vuex.vue';
-const vuex = r => require.ensure( [], () => r (require('./vuex.vue')));
+const vuex = r => require.ensure( [], () => r (require('./vuex.vue')), 'vuex');
 
 export default {
     path: '/vuex',

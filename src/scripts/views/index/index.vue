@@ -34,7 +34,7 @@
 <script>
   import Debug from 'debug';
   //等同于 import，按需加载当前组件
-  const buttonCounter = r => require.ensure( [], () => r (require('../../components/buttonCounter.vue')));
+  const buttonCounter = r => require.ensure( [], () => r (require('../../components/buttonCounter.vue')), 'buttonCounter');
   //import buttonCounter from '../../components/buttonCounter.vue';
 
   const debug = Debug('vue:index');

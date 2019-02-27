@@ -1,6 +1,6 @@
-webpackJsonp([9],{
+webpackJsonp([8],{
 
-/***/ 122:
+/***/ 127:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43,15 +43,38 @@ exports.default = {
 
 /***/ }),
 
-/***/ 201:
+/***/ 207:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    attrs: {
+      "href": "123"
+    },
+    on: {
+      "click": _vm.buttonClick
+    }
+  }, [_vm._v(_vm._s(_vm.counter))])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-44c4f088", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(62)(
+var Component = __webpack_require__(18)(
   /* script */
-  __webpack_require__(122),
+  __webpack_require__(127),
   /* template */
-  __webpack_require__(205),
+  __webpack_require__(207),
   /* styles */
   null,
   /* scopeId */
@@ -81,29 +104,6 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
-
-/***/ }),
-
-/***/ 205:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    attrs: {
-      "href": "123"
-    },
-    on: {
-      "click": _vm.buttonClick
-    }
-  }, [_vm._v(_vm._s(_vm.counter))])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-44c4f088", module.exports)
-  }
-}
 
 /***/ })
 
