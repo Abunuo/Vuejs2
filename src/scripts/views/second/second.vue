@@ -2,7 +2,7 @@
   <h3 style="font-size:20px">
     <router-link ref="notice" id="notice" to="/">{{notice}}</router-link>
     <br>
-    <input type="text" name="aa" value="456" v-focus>
+    <input ref='input' type="text" name="aa" v-focus v-model="inputData">
     <br>
     <button @click="show = !show" v-bind:style="{color:'red', fontSize:'14px', width:'auto', lineHeight:'30px', marginTop:'.2rem'}"> 点击我看动画 </button>
     <transition name="slide-fade">
@@ -17,7 +17,8 @@
     data() {
       return {
         notice: '我是第二个页面，点击我返回',
-        show: false
+        show: false,
+        inputData: 123
       }
     },
     computed: {  //计算属性
@@ -29,6 +30,9 @@
     components: {  //组件
 
     },
+    updated() {
+        console.log('updated: ', this.inputData);
+    },
     directives: {
       focus: {
         inserted: function (el, binding, vnode, oldVnode) {
@@ -37,11 +41,7 @@
       },
     },
     mounted() {
-      console.log(this);
-      console.log(this.$route);
-      console.log(this.$router);
-      $('#notice')[0].innerHTML = '123';
-      // console.log(this.$refs.input.value);
+      console.log(this.$refs.input);
     }
   }
 </script>

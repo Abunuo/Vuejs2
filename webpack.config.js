@@ -15,7 +15,7 @@ module.exports = {
   },
   resolve: {
       alias: {
-      'vue$': 'vue/dist/vue.common.js'
+          'vue$': 'vue/dist/vue.common.js'
     }
   },
   devServer: {  //webpack-dev-server 配置
@@ -86,6 +86,9 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({   //公共模块单独打包成 vendor 文件
         name: ["vendor"],
         minChunks: Infinity // 提取所有entry共同依赖的模块
+    }),
+    new webpack.DefinePlugin({  //挂载全局变量
+        'process.env.NODE_ENV': process.env.NODE_ENV == 'dev' ? '"development"' : '"production"'
     }),
     new ET('main.css'),
     // new webpack.optimize.UglifyJsPlugin({}), //代码压缩

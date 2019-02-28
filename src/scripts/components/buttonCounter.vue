@@ -1,5 +1,5 @@
 <template>
-  <button v-on:click="buttonClick" href=123>{{ counter }}</button>
+  <button v-on:click="buttonClick">{{ counter }}</button>
 </template>
 
 <script>
@@ -10,7 +10,8 @@
     // },
     props: [    //不指定数据类型
       'name',
-      'age'
+      'age',
+      'data',
     ],
     data: function () {
       return {
@@ -19,6 +20,9 @@
     },
     computed: {
 
+    },
+    mounted() {
+        // console.log(this.data.index);
     },
     methods: {
       buttonClick: function () {

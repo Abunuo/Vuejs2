@@ -11,10 +11,11 @@ import store from './store/store.js';
 localStorage.debug = 'vue:*';
 
 //根据开发状态区别是否运行 vue-devtools
-if (process.env.NODE_ENV == 'product') {
-    Vue.config.devtools = true;
-} else {
+
+if (process.env.NODE_ENV == 'production') {
     Vue.config.devtools = false;
+} else {
+    Vue.config.devtools = true;
 }
 
 Vue.use(VueRouter);

@@ -2,6 +2,7 @@
   <div style="font-size:20px;">
     <p>num1是data中的变量，其初始值为：{{num1}}</p>
     <p>点击按钮后，data中的num1变化为：{{num1}}</p>
+    <p>点击按钮后，data中的 t.num 变化为：{{t.num}}</p>
     <p>点击按钮后，computed中的c_num1变化为：{{c_num1}}</p>
     <button @click="outerNumChange" style="width:4em;">加10</button>
     <hr>
@@ -27,7 +28,11 @@
       methods: {
         outerNumChange() {
           constData.num += 10;
-          console.log(constData.num);
+          console.log('constData === this.t :',constData === this.t);
+          console.log('constData.num :', constData.num);
+          console.log('this.t.num :', this.t.num);
+          console.log('this.num1 :', this.num1);
+          console.log('this.c_num1 :', this.c_num1);
         }
       }
     };

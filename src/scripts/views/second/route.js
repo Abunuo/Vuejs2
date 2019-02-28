@@ -1,6 +1,6 @@
 //import second from './second.vue';
-const second = r => require.ensure([], () => r(require('./second.vue')), 'second');
-
+// const second = r => require.ensure([], () => r(require('./second.vue')), 'second');
+const second = () => import(/*webpackChunkName:"second"*/'./second.vue');
 
 export default {
     path: '/second',
