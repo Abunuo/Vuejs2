@@ -27,7 +27,7 @@
     "exports-loader": "^0.6.4",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "postcss": "^6.0.8",
     "postcss-loader": "^2.0.6",
