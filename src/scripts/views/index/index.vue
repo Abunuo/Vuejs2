@@ -1,12 +1,10 @@
 <template>
 <div id="container">
 	<p>{{ total }}</p>
-	<button-counter :data="parentObj" v-autoSub v-on:increment="incrementTotal"></button-counter>
+	<button-counter v-autoSub v-on:increment="incrementTotal"></button-counter>
 	<button-counter v-on:increment="incrementTotal" v-bind:name="a"></button-counter>
 	<button-counter v-on:increment="incrementTotal" v-bind:age="'我是第二个'" />
 	<router-link ref="goTo" to="/second">点我跳转第二个</router-link>
-    <br>
-    <p>{{ parentObj.index }}</p>
 	<br>
 	<button @click="show = !show" v-bind:style="{color:'red', fontSize:'14px', width:'auto', lineHeight:'30px', marginTop:'.2rem'}"> 点击我看动画 </button>
 	<transition name="slide-fade">
@@ -46,8 +44,6 @@
     const debug = Debug('vue:index');
     const _debug = Debug('vue:_index');
 
-    var parentObj = {index: 1};
-
     export default {
     	data() {
     		return {
@@ -55,7 +51,6 @@
     			total: 0,
     			a: '我是第一个',
     			show: true,
-                parentObj: parentObj
     		}
     	},
     	created() {

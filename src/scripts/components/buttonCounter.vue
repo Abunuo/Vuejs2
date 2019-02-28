@@ -11,7 +11,6 @@
     props: [    //不指定数据类型
       'name',
       'age',
-      'data',
     ],
     data: function () {
       return {
@@ -22,7 +21,7 @@
 
     },
     mounted() {
-        // console.log(this.data.index);
+
     },
     methods: {
       buttonClick: function () {
