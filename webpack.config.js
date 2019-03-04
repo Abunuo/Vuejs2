@@ -15,9 +15,11 @@ module.exports = {
   },
   resolve: {
       alias: {
-          'vue$': 'vue/dist/vue.common.js'
-    }
+          'vue$': 'vue/dist/vue.common.js',
+          '@': path.join(__dirname, '/src/scripts'),// const index = () => import(/* webpackChunkName: "index" */'@/views/index/index.vue')
+      },
   },
+  devtool: process.env.NODE_ENV == 'dev' ? '#eval-source-map' : 'false',
   devServer: {  //webpack-dev-server 配置
     contentBase: __dirname + '/prd',
     port: 8000,

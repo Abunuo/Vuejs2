@@ -1,8 +1,7 @@
 webpackJsonp([2],[
 /* 0 */,
 /* 1 */,
-/* 2 */,
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
@@ -12,7 +11,7 @@ module.exports = !__webpack_require__(10)(function () {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -21,9 +20,9 @@ module.exports = function (it) {
 
 
 /***/ }),
+/* 4 */,
 /* 5 */,
-/* 6 */,
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -35,205 +34,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-var core = module.exports = { version: '2.5.1' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(19);
-var IE8_DOM_DEFINE = __webpack_require__(45);
-var toPrimitive = __webpack_require__(46);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(3) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-// export const CHANGEINDEX = 'CHANGEINDEX';
-// export const CHANGELOGNAME = 'CHANGELOGNAME';
-var mutationsType = {
-    CHANGEINDEX: 'CHANGEINDEX', //改变 store index(传参)
-    CHANGELOGNAME: 'CHANGELOGNAME' //改变 store name
-};
-
-exports.default = mutationsType;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueRouter = __webpack_require__(1);
-
-var _vueRouter2 = _interopRequireDefault(_vueRouter);
-
-var _route = __webpack_require__(36);
-
-var _route2 = _interopRequireDefault(_route);
-
-var _route3 = __webpack_require__(39);
-
-var _route4 = _interopRequireDefault(_route3);
-
-var _route5 = __webpack_require__(40);
-
-var _route6 = _interopRequireDefault(_route5);
-
-var _route7 = __webpack_require__(34);
-
-var _route8 = _interopRequireDefault(_route7);
-
-var _route9 = __webpack_require__(41);
-
-var _route10 = _interopRequireDefault(_route9);
-
-var _route11 = __webpack_require__(35);
-
-var _route12 = _interopRequireDefault(_route11);
-
-var _route13 = __webpack_require__(37);
-
-var _route14 = _interopRequireDefault(_route13);
-
-var _route15 = __webpack_require__(38);
-
-var _route16 = _interopRequireDefault(_route15);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = new _vueRouter2.default({
-  mode: 'history',
-  routes: [_route4.default, _route6.default, _route8.default, _route10.default, _route12.default, _route14.default, _route16.default, _route2.default //404一定放在最下面
-  ]
-});
-
-router.beforeEach(function (to, from, next) {
-  if (to.matched.some(function (record) {
-    return record.meta.requiresAuth;
-  })) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    // if (!auth.loggedIn()) {
-    //   next({
-    //     path: '/vuex',
-    //     query: { redirect: to.fullPath }
-    //   })
-    // } else {
-    //   next()
-    // }
-    next({
-      // path: '/second',
-      // query: { redirect: to.fullPath }
-    });
-  } else {
-    next(); // 确保一定要调用 next()
-  }
-});
-
-exports.default = router;
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vue = __webpack_require__(2);
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _vuex = __webpack_require__(28);
-
-var _vuex2 = _interopRequireDefault(_vuex);
-
-var _actions = __webpack_require__(31);
-
-var actions = _interopRequireWildcard(_actions);
-
-var _getters = __webpack_require__(32);
-
-var getters = _interopRequireWildcard(_getters);
-
-var _module = __webpack_require__(33);
-
-var _module2 = _interopRequireDefault(_module);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_vue2.default.use(_vuex2.default);
-
-//modules
-exports.default = new _vuex2.default.Store({
-  actions: actions,
-  getters: getters,
-  modules: {
-    module1: _module2.default
-  },
-  strict: true //运行在严格模式下，发布环境一定禁止！！会影响 v-model
-});
-
-/***/ }),
-/* 14 */,
-/* 15 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 16 */,
-/* 17 */,
-/* 18 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -330,10 +131,209 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.1' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(19);
+var IE8_DOM_DEFINE = __webpack_require__(46);
+var toPrimitive = __webpack_require__(47);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(2) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+// export const CHANGEINDEX = 'CHANGEINDEX';
+// export const CHANGELOGNAME = 'CHANGELOGNAME';
+var mutationsType = {
+    CHANGEINDEX: 'CHANGEINDEX', //改变 store index(传参)
+    CHANGELOGNAME: 'CHANGELOGNAME' //改变 store name
+};
+
+exports.default = mutationsType;
+
+/***/ }),
+/* 12 */,
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueRouter = __webpack_require__(0);
+
+var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+var _route = __webpack_require__(37);
+
+var _route2 = _interopRequireDefault(_route);
+
+var _route3 = __webpack_require__(40);
+
+var _route4 = _interopRequireDefault(_route3);
+
+var _route5 = __webpack_require__(41);
+
+var _route6 = _interopRequireDefault(_route5);
+
+var _route7 = __webpack_require__(35);
+
+var _route8 = _interopRequireDefault(_route7);
+
+var _route9 = __webpack_require__(42);
+
+var _route10 = _interopRequireDefault(_route9);
+
+var _route11 = __webpack_require__(36);
+
+var _route12 = _interopRequireDefault(_route11);
+
+var _route13 = __webpack_require__(38);
+
+var _route14 = _interopRequireDefault(_route13);
+
+var _route15 = __webpack_require__(39);
+
+var _route16 = _interopRequireDefault(_route15);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = new _vueRouter2.default({
+  mode: 'history',
+  routes: [_route4.default, _route6.default, _route8.default, _route10.default, _route12.default, _route14.default, _route16.default, _route2.default //404一定放在最下面
+  ]
+});
+
+router.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.requiresAuth;
+  })) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    // if (!auth.loggedIn()) {
+    //   next({
+    //     path: '/vuex',
+    //     query: { redirect: to.fullPath }
+    //   })
+    // } else {
+    //   next()
+    // }
+    next({
+      // path: '/second',
+      // query: { redirect: to.fullPath }
+    });
+  } else {
+    next(); // 确保一定要调用 next()
+  }
+});
+
+exports.default = router;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vue = __webpack_require__(1);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vuex = __webpack_require__(28);
+
+var _vuex2 = _interopRequireDefault(_vuex);
+
+var _actions = __webpack_require__(32);
+
+var actions = _interopRequireWildcard(_actions);
+
+var _getters = __webpack_require__(33);
+
+var getters = _interopRequireWildcard(_getters);
+
+var _module = __webpack_require__(34);
+
+var _module2 = _interopRequireDefault(_module);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vuex2.default);
+
+//modules
+exports.default = new _vuex2.default.Store({
+  actions: actions,
+  getters: getters,
+  modules: {
+    module1: _module2.default
+  },
+  strict: true //运行在严格模式下，发布环境一定禁止！！会影响 v-model
+});
+
+/***/ }),
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 17 */,
+/* 18 */,
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(4);
+var isObject = __webpack_require__(3);
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -344,7 +344,7 @@ module.exports = function (it) {
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(7);
+var global = __webpack_require__(6);
 var core = __webpack_require__(8);
 var ctx = __webpack_require__(23);
 var hide = __webpack_require__(21);
@@ -413,7 +413,7 @@ module.exports = $export;
 
 var dP = __webpack_require__(9);
 var createDesc = __webpack_require__(27);
-module.exports = __webpack_require__(3) ? function (object, key, value) {
+module.exports = __webpack_require__(2) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -461,8 +461,8 @@ module.exports = function (fn, that, length) {
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(4);
-var document = __webpack_require__(7).document;
+var isObject = __webpack_require__(3);
+var document = __webpack_require__(6).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -572,7 +572,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(58)
+var listToStyles = __webpack_require__(61)
 
 /*
 type StyleObject = {
@@ -793,7 +793,7 @@ module.exports = function (bitmap, value) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
@@ -989,7 +989,7 @@ ModuleCollection.prototype.register = function register (path, rawModule, runtim
     var this$1 = this;
     if ( runtime === void 0 ) runtime = true;
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assertRawModule(path, rawModule);
   }
 
@@ -1018,7 +1018,7 @@ ModuleCollection.prototype.unregister = function unregister (path) {
 };
 
 function update (path, targetModule, newModule) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assertRawModule(path, newModule);
   }
 
@@ -1029,7 +1029,7 @@ function update (path, targetModule, newModule) {
   if (newModule.modules) {
     for (var key in newModule.modules) {
       if (!targetModule.getChild(key)) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (false) {
           console.warn(
             "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
             'manual reload is needed'
@@ -1100,7 +1100,7 @@ var Store = function Store (options) {
     install(window.Vue);
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
     assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
     assert(this instanceof Store, "Store must be called with the new operator.");
@@ -1164,7 +1164,7 @@ prototypeAccessors.state.get = function () {
 };
 
 prototypeAccessors.state.set = function (v) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assert(false, "Use store.replaceState() to explicit replace store state.");
   }
 };
@@ -1181,7 +1181,7 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
   var mutation = { type: type, payload: payload };
   var entry = this._mutations[type];
   if (!entry) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       console.error(("[vuex] unknown mutation type: " + type));
     }
     return
@@ -1194,8 +1194,7 @@ Store.prototype.commit = function commit (_type, _payload, _options) {
   this._subscribers.forEach(function (sub) { return sub(mutation, this$1.state); });
 
   if (
-    process.env.NODE_ENV !== 'production' &&
-    options && options.silent
+    false
   ) {
     console.warn(
       "[vuex] mutation type: " + type + ". Silent option has been removed. " +
@@ -1215,7 +1214,7 @@ Store.prototype.dispatch = function dispatch (_type, _payload) {
   var action = { type: type, payload: payload };
   var entry = this._actions[type];
   if (!entry) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       console.error(("[vuex] unknown action type: " + type));
     }
     return
@@ -1239,7 +1238,7 @@ Store.prototype.subscribeAction = function subscribeAction (fn) {
 Store.prototype.watch = function watch (getter, cb, options) {
     var this$1 = this;
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assert(typeof getter === 'function', "store.watch only accepts a function.");
   }
   return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
@@ -1258,7 +1257,7 @@ Store.prototype.registerModule = function registerModule (path, rawModule, optio
 
   if (typeof path === 'string') { path = [path]; }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assert(Array.isArray(path), "module path must be a string or an Array.");
     assert(path.length > 0, 'cannot register the root module by using registerModule.');
   }
@@ -1274,7 +1273,7 @@ Store.prototype.unregisterModule = function unregisterModule (path) {
 
   if (typeof path === 'string') { path = [path]; }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assert(Array.isArray(path), "module path must be a string or an Array.");
   }
 
@@ -1427,7 +1426,7 @@ function makeLocalContext (store, namespace, path) {
 
       if (!options || !options.root) {
         type = namespace + type;
-        if (process.env.NODE_ENV !== 'production' && !store._actions[type]) {
+        if (false) {
           console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
           return
         }
@@ -1444,7 +1443,7 @@ function makeLocalContext (store, namespace, path) {
 
       if (!options || !options.root) {
         type = namespace + type;
-        if (process.env.NODE_ENV !== 'production' && !store._mutations[type]) {
+        if (false) {
           console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
           return
         }
@@ -1527,7 +1526,7 @@ function registerAction (store, type, handler, local) {
 
 function registerGetter (store, type, rawGetter, local) {
   if (store._wrappedGetters[type]) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       console.error(("[vuex] duplicate getter key: " + type));
     }
     return
@@ -1544,7 +1543,7 @@ function registerGetter (store, type, rawGetter, local) {
 
 function enableStrictMode (store) {
   store._vm.$watch(function () { return this._data.$$state }, function () {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       assert(store._committing, "Do not mutate vuex store state outside mutation handlers.");
     }
   }, { deep: true, sync: true });
@@ -1563,7 +1562,7 @@ function unifyObjectStyle (type, payload, options) {
     type = type.type;
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (false) {
     assert(typeof type === 'string', ("Expects string as the type, but found " + (typeof type) + "."));
   }
 
@@ -1572,7 +1571,7 @@ function unifyObjectStyle (type, payload, options) {
 
 function install (_Vue) {
   if (Vue && _Vue === Vue) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (false) {
       console.error(
         '[vuex] already installed. Vue.use(Vuex) should be called only once.'
       );
@@ -1647,7 +1646,7 @@ var mapGetters = normalizeNamespace(function (namespace, getters) {
       if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
         return
       }
-      if (process.env.NODE_ENV !== 'production' && !(val in this.$store.getters)) {
+      if (false) {
         console.error(("[vuex] unknown getter: " + val));
         return
       }
@@ -1712,7 +1711,7 @@ function normalizeNamespace (fn) {
 
 function getModuleByNamespace (store, helper, namespace) {
   var module = store._modulesNamespaceMap[namespace];
-  if (process.env.NODE_ENV !== 'production' && !module) {
+  if (false) {
     console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
   }
   return module
@@ -1732,7 +1731,6 @@ var index_esm = {
 
 /* harmony default export */ __webpack_exports__["default"] = (index_esm);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
 /* 29 */
@@ -1742,23 +1740,66 @@ var index_esm = {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
+});
+//
+//
+//
+//
+
+exports.default = {
+  // props: {   //指定数据类型
+  //   name: String,
+  //   age: String
+  // },
+  props: [//不指定数据类型
+  'name', 'age'],
+  data: function data() {
+    return {
+      counter: 0
+    };
+  },
+  computed: {},
+  mounted: function mounted() {},
+
+  methods: {
+    buttonClick: function buttonClick() {
+      this.counter += 1;
+      this.$emit('increment');
+      this.$emit('Monologue');
+      if (this.name) {
+        console.log(this.name);
+      } else if (this.age) {
+        console.log(this.age);
+      }
+    }
+  }
+};
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
 });
 
-var _debug2 = __webpack_require__(6);
+var _debug2 = __webpack_require__(5);
 
 var _debug3 = _interopRequireDefault(_debug2);
 
+var _buttonCounter = __webpack_require__(56);
+
+var _buttonCounter2 = _interopRequireDefault(_buttonCounter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//等同于 import，按需加载当前组件
-var buttonCounter = function buttonCounter(r) {
-    return __webpack_require__.e/* require.ensure */(8).then((function () {
-        return r(__webpack_require__(62));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-};
-//import buttonCounter from '../../components/buttonCounter.vue';
-
+//
+//
+//
 //
 //
 //
@@ -1794,119 +1835,123 @@ var buttonCounter = function buttonCounter(r) {
 //
 
 var debug = (0, _debug3.default)('vue:index');
+//等同于 import，按需加载当前组件  注：会导致多进入一次 updated 周期（异步加载导致页面重绘）
+//const buttonCounter = r => require.ensure([], () => r(require('../../components/buttonCounter.vue')), 'buttonCounter');
+//const buttonCounter = () => import(/*webpackChunkName: 'buttonCounter'*/'../../components/buttonCounter.vue')
+
 var _debug = (0, _debug3.default)('vue:_index');
 
 exports.default = {
-    data: function data() {
-        return {
-            name: 'Monologue',
-            total: 0,
-            a: '我是第一个',
-            show: true
-        };
-    },
-    created: function created() {
-        debug('index created');
-        _debug('_index created');
-        this.$on('update', function (val) {
-            console.log('updateTotal: ' + val);
-        });
-        this.$watch('total', function (newVal, oldVal) {
-            console.log('data is change:' + oldVal + '->' + newVal);
-        });
-        this.$watch('show', function (newVal, oldVal) {
-            //等同于下面的 watch
-            console.log('$watch-show is change:' + oldVal + '->' + newVal);
-        });
-    },
+	data: function data() {
+		return {
+			name: 'Monologue',
+			total: 0,
+			a: '我是第一个',
+			show: true
+		};
+	},
+	created: function created() {
+		debug('index created');
+		_debug('_index created');
+		this.$on('update', function (val) {
+			console.log('updateTotal: ' + val);
+		});
+		this.$watch('total', function (newVal, oldVal) {
+			console.log('data is change:' + oldVal + '->' + newVal);
+		});
+		this.$watch('show', function (newVal, oldVal) {
+			//等同于下面的 watch
+			console.log('$watch-show is change:' + oldVal + '->' + newVal);
+		});
+	},
 
-    computed: {//计算属性
+	computed: {//计算属性
 
-    },
-    directives: { //自定义指令
-        autoSub: {
-            inserted: function inserted(el) {
-                el.click();
-            }
-        }
-    },
-    methods: { //事件方法
-        incrementTotal: function incrementTotal() {
-            this.total += 1;
-        }
-    },
-    updated: function updated() {
-        this.$emit('update', this.total);
-    },
+	},
+	directives: { //自定义指令
+		autoSub: {
+			inserted: function inserted(el) {
+				el.click();
+			}
+		}
+	},
+	methods: { //事件方法
+		incrementTotal: function incrementTotal() {
+			this.total += 1;
+		}
+	},
+	updated: function updated() {
+		this.$emit('update', this.total);
+	},
 
-    components: { //组件
-        buttonCounter: buttonCounter,
-        myCompontent: {
-            //利用 render 渲染页面
-            // render(createElement) {
-            //   return createElement(
-            //     'h2',
-            //     [  // 渲染模板
-            //       'Hello',
-            //       createElement('br'),
-            //       'World!'
-            //     ]
-            //   )
-            // }
+	components: { //组件
+		buttonCounter: _buttonCounter2.default,
+		myCompontent: {
+			//利用 render 渲染页面
+			// render(createElement) {
+			//   return createElement(
+			//     'h2',
+			//     [  // 渲染模板
+			//       'Hello',
+			//       createElement('br'),
+			//       'World!'
+			//     ]
+			//   )
+			// }
 
-            // template: '<h2>abc</h2>' //利用 template
+			// template: '<h2>abc</h2>' //利用 template
 
-            render: function render(createElement) {
-                var h = arguments[0];
-                //安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
-                return h(
-                    'div',
-                    null,
-                    [h(
-                        'h2',
-                        null,
-                        [this.$slots.default[0].text, '+', this.$vnode.data.attrs.value]
-                    ), h(
-                        'h2',
-                        null,
-                        ['\u7B49\u540C\u4E8E\uFF1A', this.$slots.default[0].text, '+', this.$attrs.value]
-                    )]
-                );
-            }
-        }
-    },
-    mounted: function mounted() {},
+			render: function render(createElement) {
+				var h = arguments[0];
+				//安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
+				return h(
+					'div',
+					null,
+					[h(
+						'h2',
+						null,
+						[' ', this.$slots.default[0].text, ' + ', this.$vnode.data.attrs.value, ' ']
+					), ' ', h(
+						'h2',
+						null,
+						[' \u7B49\u540C\u4E8E\uFF1A ', this.$slots.default[0].text, ' + ', this.$attrs.value, ' ']
+					), ' ']
+				);
+			}
+		}
+	},
+	mounted: function mounted() {},
 
-    watch: {
-        show: function show(newVal, oldVal) {
-            //等同于上面的事件监听
-            console.log('watch-show is change:' + oldVal + '->' + newVal);
-        }
-    }
+	watch: {
+		show: function show(newVal, oldVal) {
+			//等同于上面的事件监听
+			console.log('watch-show is change:' + oldVal + '->' + newVal);
+		}
+	}
 };
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
 
-__webpack_require__(15);
 
-var _vue = __webpack_require__(2);
+__webpack_require__(16);
+
+var _vue = __webpack_require__(1);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueRouter = __webpack_require__(1);
+var _vueRouter = __webpack_require__(0);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
-var _router = __webpack_require__(12);
+var _router = __webpack_require__(13);
 
 var _router2 = _interopRequireDefault(_router);
 
-var _store = __webpack_require__(13);
+var _store = __webpack_require__(14);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -1919,10 +1964,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 localStorage.debug = 'vue:*';
 
 //根据开发状态区别是否运行 vue-devtools
-if (process.env.NODE_ENV == 'product') {
-    _vue2.default.config.devtools = true;
-} else {
+
+if (true) {
     _vue2.default.config.devtools = false;
+} else {
+    _vue2.default.config.devtools = true;
 }
 
 _vue2.default.use(_vueRouter2.default);
@@ -1944,10 +1990,9 @@ new _vue2.default({
     store: _store2.default
     // el: '#app',
 }).$mount('router-view'); //等同于 el: '#app'  https://segmentfault.com/a/1190000009467029
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1982,7 +2027,7 @@ var logName = exports.logName = function logName(_ref2) {
 };
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1996,7 +2041,7 @@ var getLog = exports.getLog = function getLog(state) {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2006,7 +2051,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = __webpack_require__(43);
+var _defineProperty2 = __webpack_require__(44);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
@@ -2042,28 +2087,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//import async from './async.vue';
-var async = function async(r) {
-    return __webpack_require__.e/* require.ensure */(1).then((function () {
-        return r(__webpack_require__(63));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-};
-
-exports.default = {
-    path: '/async',
-    component: async
-};
-
-/***/ }),
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2073,17 +2096,15 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-//import dataORcomputed from './dataORcomputed.vue';
-//等同于 import，按需加载当前组件
-var dataORcomputed = function dataORcomputed(r) {
-    return __webpack_require__.e/* require.ensure */(7).then((function () {
-        return r(__webpack_require__(64));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+//import async from './async.vue';
+// const async = r => require.ensure([], () => r(require('./async.vue')), 'async');
+var async = function async() {
+    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 65));
 };
 
 exports.default = {
-    path: '/dataORcomputed',
-    component: dataORcomputed
+    path: '/async',
+    component: async
 };
 
 /***/ }),
@@ -2096,15 +2117,16 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-//import error from './error.vue';
-var error = function error(r) {
-    return __webpack_require__.e/* require.ensure */(6).then((function () {
-        return r(__webpack_require__(65));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+//import dataORcomputed from './dataORcomputed.vue';
+//等同于 import，按需加载当前组件
+// const dataORcomputed = r => require.ensure( [], () => r (require('./dataORcomputed.vue')), 'dataORcomputed');
+var dataORcomputed = function dataORcomputed() {
+    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 66));
 };
+
 exports.default = {
-    path: '*',
-    component: error
+    path: '/dataORcomputed',
+    component: dataORcomputed
 };
 
 /***/ }),
@@ -2117,16 +2139,14 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-//import grid from './grid.vue';
-var grid = function grid(r) {
-    return __webpack_require__.e/* require.ensure */(4).then((function () {
-        return r(__webpack_require__(66));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+//import error from './error.vue';
+// const error = r => require.ensure([], () => r(require('./error.vue')), 'error');
+var error = function error() {
+    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 67));
 };
-
 exports.default = {
-    path: '/grid',
-    component: grid
+    path: '*',
+    component: error
 };
 
 /***/ }),
@@ -2139,16 +2159,15 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-//import html2canvas from './html2canvas.vue';
-var html2canvas = function html2canvas(r) {
-    return __webpack_require__.e/* require.ensure */(0).then((function () {
-        return r(__webpack_require__(67));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+//import grid from './grid.vue';
+// const grid = r => require.ensure([], () => r(require('./grid.vue')), 'grid');
+var grid = function grid() {
+    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 68));
 };
 
 exports.default = {
-    path: '/html2canvas',
-    component: html2canvas
+    path: '/grid',
+    component: grid
 };
 
 /***/ }),
@@ -2161,21 +2180,14 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-/*
-   按需加载当前组件 ---> 类似 import index from './index.vue';
-   参数一：需要的依赖
-   参数二：懒加载模块
-   参数三：生成文件的名
- */
-var index = function index(r) {
-    return __webpack_require__.e/* require.ensure */(2).then((function () {
-        return r(__webpack_require__(55));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+//import html2canvas from './html2canvas.vue';
+// const html2canvas = r => require.ensure( [], () => r (require('./html2canvas.vue')), 'html2canvas');
+var html2canvas = function html2canvas() {
+    return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 69));
 };
-
 exports.default = {
-    path: '/',
-    component: index
+    path: '/html2canvas',
+    component: html2canvas
 };
 
 /***/ }),
@@ -2188,11 +2200,49 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+/*
+    正常加载模块
+    import index from './index.vue';
+ */
+/*
+    1.按需加载当前组件 (该方法已被摒弃)
+    参数一：需要的依赖
+    参数二：懒加载模块
+    参数三：生成文件的名
+    const index = r => require.ensure( [], () => r (require('./index.vue')),'index');
+
+    *** 注：会导致多进入一次 updated 周期（异步加载导致页面重绘）
+    *** 组件不建议使用异步加载，导致多次进入 updated 周期
+ */
+/*
+    2.按需加载当前组件 ---> 类似于上述方法
+    webpackChunkName： 生成文件的名
+
+    *** 注：会导致多进入一次 updated 周期（异步加载导致页面重绘）
+    *** 组件不建议使用异步加载，导致多次进入 updated 周期
+ */
+var index = function index() {
+    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 57));
+};
+exports.default = {
+    path: '/',
+    component: index
+};
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 //import second from './second.vue';
-var second = function second(r) {
-    return __webpack_require__.e/* require.ensure */(5).then((function () {
-        return r(__webpack_require__(68));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+// const second = r => require.ensure([], () => r(require('./second.vue')), 'second');
+var second = function second() {
+    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 70));
 };
 
 exports.default = {
@@ -2213,7 +2263,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2223,10 +2273,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 //import vuex from './vuex.vue';
-var vuex = function vuex(r) {
-    return __webpack_require__.e/* require.ensure */(3).then((function () {
-        return r(__webpack_require__(69));
-    }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+// const vuex = r => require.ensure( [], () => r (require('./vuex.vue')), 'vuex');
+
+var vuex = function vuex() {
+    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 71));
 };
 
 exports.default = {
@@ -2235,13 +2285,13 @@ exports.default = {
 };
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(44), __esModule: true };
+module.exports = { "default": __webpack_require__(45), __esModule: true };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2249,7 +2299,7 @@ module.exports = { "default": __webpack_require__(44), __esModule: true };
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(42);
+var _defineProperty = __webpack_require__(43);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -2271,10 +2321,10 @@ exports.default = function (obj, key, value) {
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(47);
+__webpack_require__(48);
 var $Object = __webpack_require__(8).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -2282,20 +2332,20 @@ module.exports = function defineProperty(it, key, desc) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(3) && !__webpack_require__(10)(function () {
+module.exports = !__webpack_require__(2) && !__webpack_require__(10)(function () {
   return Object.defineProperty(__webpack_require__(24)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(4);
+var isObject = __webpack_require__(3);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -2309,16 +2359,16 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(20);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(3), 'Object', { defineProperty: __webpack_require__(9).f });
+$export($export.S + $export.F * !__webpack_require__(2), 'Object', { defineProperty: __webpack_require__(9).f });
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(25)(undefined);
@@ -2326,31 +2376,71 @@ exports = module.exports = __webpack_require__(25)(undefined);
 
 
 // module
-exports.push([module.i, "\n.slide-fade-enter-active[data-v-987a968e] {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-987a968e] {\n  -webkit-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-987a968e], .slide-fade-leave-active[data-v-987a968e] {\n  -webkit-transform: translateX(50px);\n          transform: translateX(50px);\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-fade-enter-active[data-v-987a968e] {\n\t-webkit-transition: all .3s ease;\n\ttransition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-987a968e] {\n\t-webkit-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n\ttransition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-987a968e],\n.slide-fade-leave-active[data-v-987a968e] {\n\t-webkit-transform: translateX(50px);\n\t        transform: translateX(50px);\n\topacity: 0;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 49 */,
 /* 50 */,
 /* 51 */,
 /* 52 */,
 /* 53 */,
 /* 54 */,
-/* 55 */
+/* 55 */,
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(7)(
+  /* script */
+  __webpack_require__(29),
+  /* template */
+  __webpack_require__(58),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/monologue/Documents/workSpace/vueJs_2.0/src/scripts/components/buttonCounter.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] buttonCounter.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-44c4f088", Component.options)
+  } else {
+    hotAPI.reload("data-v-44c4f088", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(57)
+  __webpack_require__(60)
 }
-var Component = __webpack_require__(18)(
+var Component = __webpack_require__(7)(
   /* script */
-  __webpack_require__(29),
+  __webpack_require__(30),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(59),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -2382,7 +2472,26 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 56 */
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    on: {
+      "click": _vm.buttonClick
+    }
+  }, [_vm._v(_vm._s(_vm.counter))])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-44c4f088", module.exports)
+  }
+}
+
+/***/ }),
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2445,7 +2554,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "transition": "fade"
     }
-  }, [_vm._v("\n    Molonogue\n  ")]) : _vm._e(), _vm._v(" "), _c('my-compontent', {
+  }, [_vm._v("\n\t\tMolonogue\n\t")]) : _vm._e(), _vm._v(" "), _c('my-compontent', {
     attrs: {
       "value": 123
     }
@@ -2464,13 +2573,13 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(48);
+var content = __webpack_require__(49);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -2490,7 +2599,7 @@ if(false) {
 }
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports) {
 
 /**
@@ -2523,4 +2632,4 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ })
-],[30]);
+],[31]);

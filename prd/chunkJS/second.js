@@ -1,6 +1,6 @@
 webpackJsonp([5],{
 
-/***/ 133:
+/***/ 134:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28,7 +28,8 @@ exports.default = {
   data: function data() {
     return {
       notice: '我是第二个页面，点击我返回',
-      show: false
+      show: false,
+      inputData: 123
     };
   },
 
@@ -41,6 +42,10 @@ exports.default = {
   components: {//组件
 
   },
+  updated: function updated() {
+    console.log('updated: ', this.inputData);
+  },
+
   directives: {
     focus: {
       inserted: function inserted(el, binding, vnode, oldVnode) {
@@ -49,17 +54,13 @@ exports.default = {
     }
   },
   mounted: function mounted() {
-    console.log(this);
-    console.log(this.$route);
-    console.log(this.$router);
-    $('#notice')[0].innerHTML = '123';
-    // console.log(this.$refs.input.value);
+    console.log(this.$refs.input);
   }
 };
 
 /***/ }),
 
-/***/ 205:
+/***/ 206:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -77,11 +78,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "focus",
       rawName: "v-focus"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.inputData),
+      expression: "inputData"
     }],
+    ref: "input",
     attrs: {
       "type": "text",
-      "name": "aa",
-      "value": "456"
+      "name": "aa"
+    },
+    domProps: {
+      "value": (_vm.inputData)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.inputData = $event.target.value
+      }
     }
   }), _vm._v(" "), _c('br'), _vm._v(" "), _c('button', {
     style: ({
@@ -102,7 +117,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(_vm.show) ? _c('img', {
     attrs: {
-      "src": __webpack_require__(89)
+      "src": __webpack_require__(91)
     }
   }) : _vm._e()])], 1)
 },staticRenderFns: []}
@@ -116,15 +131,15 @@ if (false) {
 
 /***/ }),
 
-/***/ 68:
+/***/ 70:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(18)(
+var Component = __webpack_require__(7)(
   /* script */
-  __webpack_require__(133),
+  __webpack_require__(134),
   /* template */
-  __webpack_require__(205),
+  __webpack_require__(206),
   /* styles */
   null,
   /* scopeId */
@@ -157,7 +172,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 89:
+/***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "/images/img.png";

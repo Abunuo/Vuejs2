@@ -1,6 +1,6 @@
 webpackJsonp([7],{
 
-/***/ 129:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9,6 +9,7 @@ webpackJsonp([7],{
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+//
 //
 //
 //
@@ -39,7 +40,11 @@ exports.default = {
   methods: {
     outerNumChange: function outerNumChange() {
       constData.num += 10;
-      console.log(constData.num);
+      console.log('constData === this.t :', constData === this.t);
+      console.log('constData.num :', constData.num);
+      console.log('this.t.num :', this.t.num);
+      console.log('this.num1 :', this.num1);
+      console.log('this.c_num1 :', this.c_num1);
     }
   }
 };
@@ -54,7 +59,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "20px"
     }
-  }, [_c('p', [_vm._v("num1是data中的变量，其初始值为：" + _vm._s(_vm.num1))]), _vm._v(" "), _c('p', [_vm._v("点击按钮后，data中的num1变化为：" + _vm._s(_vm.num1))]), _vm._v(" "), _c('p', [_vm._v("点击按钮后，computed中的c_num1变化为：" + _vm._s(_vm.c_num1))]), _vm._v(" "), _c('button', {
+  }, [_c('p', [_vm._v("num1是data中的变量，其初始值为：" + _vm._s(_vm.num1))]), _vm._v(" "), _c('p', [_vm._v("点击按钮后，data中的num1变化为：" + _vm._s(_vm.num1))]), _vm._v(" "), _c('p', [_vm._v("点击按钮后，data中的 t.num 变化为：" + _vm._s(_vm.t.num))]), _vm._v(" "), _c('p', [_vm._v("点击按钮后，computed中的c_num1变化为：" + _vm._s(_vm.c_num1))]), _vm._v(" "), _c('button', {
     staticStyle: {
       "width": "4em"
     },
@@ -73,13 +78,13 @@ if (false) {
 
 /***/ }),
 
-/***/ 64:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(18)(
+var Component = __webpack_require__(7)(
   /* script */
-  __webpack_require__(129),
+  __webpack_require__(130),
   /* template */
   __webpack_require__(208),
   /* styles */
