@@ -1961,6 +1961,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // import _ from 'lodash';
 
+// 浏览器模拟控制台
+// import eruda from 'eruda';
+// eruda.init();
+
 localStorage.debug = 'vue:*';
 
 //根据开发状态区别是否运行 vue-devtools

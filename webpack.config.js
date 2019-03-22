@@ -34,7 +34,7 @@ module.exports = {
     //     }
     //   }
     // },
-    // host:'192.168.1.53',
+    //host:'192.168.199.230', //ip 打开 ip为当前主机网络 ip
     historyApiFallback:true  //开发的时候用，生产环境服务器端配置  //当路由使用 history 是设置此项为 true（解决直接跳转子路由返回 404 问题）
   },
   module: {

@@ -4,6 +4,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 // import _ from 'lodash';
 
+// 浏览器模拟控制台
+// import eruda from 'eruda';
+// eruda.init();
+
 import router from './routes/router.js';
 import store from './store/store.js';
 
