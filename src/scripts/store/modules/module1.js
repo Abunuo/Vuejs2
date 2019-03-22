@@ -17,9 +17,16 @@ const mutations = {
     state.name = state.name+state.index;
   }
 }
+const actions = {
+    log({ commit, state }, index=0) {
+      // state.module1.index = index+1;  //严格模式下只能使用 mutations 所以会报错
+      commit(type.CHANGEINDEX, index);
+    },
+}
 
 export default {
   state,
   getters,
+  actions,
   mutations
 }
