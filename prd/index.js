@@ -143,8 +143,8 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(19);
-var IE8_DOM_DEFINE = __webpack_require__(46);
-var toPrimitive = __webpack_require__(47);
+var IE8_DOM_DEFINE = __webpack_require__(47);
+var toPrimitive = __webpack_require__(48);
 var dP = Object.defineProperty;
 
 exports.f = __webpack_require__(2) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
@@ -216,7 +216,7 @@ var _route3 = __webpack_require__(40);
 
 var _route4 = _interopRequireDefault(_route3);
 
-var _route5 = __webpack_require__(41);
+var _route5 = __webpack_require__(42);
 
 var _route6 = _interopRequireDefault(_route5);
 
@@ -224,7 +224,7 @@ var _route7 = __webpack_require__(35);
 
 var _route8 = _interopRequireDefault(_route7);
 
-var _route9 = __webpack_require__(42);
+var _route9 = __webpack_require__(43);
 
 var _route10 = _interopRequireDefault(_route9);
 
@@ -240,11 +240,15 @@ var _route15 = __webpack_require__(39);
 
 var _route16 = _interopRequireDefault(_route15);
 
+var _route17 = __webpack_require__(41);
+
+var _route18 = _interopRequireDefault(_route17);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = new _vueRouter2.default({
   mode: 'history',
-  routes: [_route4.default, _route6.default, _route8.default, _route10.default, _route12.default, _route14.default, _route16.default, _route2.default //404一定放在最下面
+  routes: [_route4.default, _route6.default, _route8.default, _route10.default, _route12.default, _route14.default, _route16.default, _route18.default, _route2.default //404一定放在最下面
   ]
 });
 
@@ -459,19 +463,6 @@ module.exports = function (fn, that, length) {
 
 /***/ }),
 /* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(3);
-var document = __webpack_require__(6).document;
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-
-/***/ }),
-/* 25 */
 /***/ (function(module, exports) {
 
 /*
@@ -553,7 +544,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -572,7 +563,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(61)
+var listToStyles = __webpack_require__(62)
 
 /*
 type StyleObject = {
@@ -771,6 +762,19 @@ function applyToTag (styleElement, obj) {
     styleElement.appendChild(document.createTextNode(css))
   }
 }
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(3);
+var document = __webpack_require__(6).document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
 
 
 /***/ }),
@@ -1791,7 +1795,7 @@ var _debug2 = __webpack_require__(5);
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _buttonCounter = __webpack_require__(56);
+var _buttonCounter = __webpack_require__(57);
 
 var _buttonCounter2 = _interopRequireDefault(_buttonCounter);
 
@@ -2005,7 +2009,7 @@ new _vue2.default({
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logName = exports.log = undefined;
+exports.logName = undefined;
 
 var _mutationsTypes = __webpack_require__(11);
 
@@ -2013,18 +2017,9 @@ var _mutationsTypes2 = _interopRequireDefault(_mutationsTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var log = exports.log = function log(_ref) {
+var logName = exports.logName = function logName(_ref) {
   var commit = _ref.commit,
       state = _ref.state;
-  var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-  // state.module1.index = index+1;  //严格模式下只能使用 mutations 所以会报错
-  commit(_mutationsTypes2.default.CHANGEINDEX, index);
-};
-
-var logName = exports.logName = function logName(_ref2) {
-  var commit = _ref2.commit,
-      state = _ref2.state;
 
   // state.module1.index = index+1;  //严格模式下只能使用 mutations 所以会报错
   commit(_mutationsTypes2.default.CHANGELOGNAME);
@@ -2055,7 +2050,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = __webpack_require__(44);
+var _defineProperty2 = __webpack_require__(45);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
@@ -2083,10 +2078,21 @@ var mutations = (_mutations = {}, (0, _defineProperty3.default)(_mutations, _mut
 }), (0, _defineProperty3.default)(_mutations, 'CHANGELOGNAME', function CHANGELOGNAME(state) {
   state.name = state.name + state.index;
 }), _mutations);
+var actions = {
+  log: function log(_ref) {
+    var commit = _ref.commit,
+        state = _ref.state;
+    var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    // state.module1.index = index+1;  //严格模式下只能使用 mutations 所以会报错
+    commit(_mutationsTypes2.default.CHANGEINDEX, index);
+  }
+};
 
 exports.default = {
   state: state,
   getters: getters,
+  actions: actions,
   mutations: mutations
 };
 
@@ -2103,7 +2109,7 @@ Object.defineProperty(exports, "__esModule", {
 //import async from './async.vue';
 // const async = r => require.ensure([], () => r(require('./async.vue')), 'async');
 var async = function async() {
-    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 65));
+    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 66));
 };
 
 exports.default = {
@@ -2125,7 +2131,7 @@ Object.defineProperty(exports, "__esModule", {
 //等同于 import，按需加载当前组件
 // const dataORcomputed = r => require.ensure( [], () => r (require('./dataORcomputed.vue')), 'dataORcomputed');
 var dataORcomputed = function dataORcomputed() {
-    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 66));
+    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 67));
 };
 
 exports.default = {
@@ -2146,7 +2152,7 @@ Object.defineProperty(exports, "__esModule", {
 //import error from './error.vue';
 // const error = r => require.ensure([], () => r(require('./error.vue')), 'error');
 var error = function error() {
-    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 67));
+    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 68));
 };
 exports.default = {
     path: '*',
@@ -2166,7 +2172,7 @@ Object.defineProperty(exports, "__esModule", {
 //import grid from './grid.vue';
 // const grid = r => require.ensure([], () => r(require('./grid.vue')), 'grid');
 var grid = function grid() {
-    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 68));
+    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 69));
 };
 
 exports.default = {
@@ -2187,7 +2193,7 @@ Object.defineProperty(exports, "__esModule", {
 //import html2canvas from './html2canvas.vue';
 // const html2canvas = r => require.ensure( [], () => r (require('./html2canvas.vue')), 'html2canvas');
 var html2canvas = function html2canvas() {
-    return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 69));
+    return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 70));
 };
 exports.default = {
     path: '/html2canvas',
@@ -2226,7 +2232,7 @@ Object.defineProperty(exports, "__esModule", {
     *** 组件不建议使用异步加载，导致多次进入 updated 周期
  */
 var index = function index() {
-    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 57));
+    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 58));
 };
 exports.default = {
     path: '/',
@@ -2243,10 +2249,29 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var inputORscroll = function inputORscroll() {
+    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 71));
+};
+
+exports.default = {
+    path: '/inputORscroll',
+    component: inputORscroll
+};
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 //import second from './second.vue';
 // const second = r => require.ensure([], () => r(require('./second.vue')), 'second');
 var second = function second() {
-    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 70));
+    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 72));
 };
 
 exports.default = {
@@ -2267,7 +2292,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2280,7 +2305,7 @@ Object.defineProperty(exports, "__esModule", {
 // const vuex = r => require.ensure( [], () => r (require('./vuex.vue')), 'vuex');
 
 var vuex = function vuex() {
-    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 71));
+    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 73));
 };
 
 exports.default = {
@@ -2289,13 +2314,13 @@ exports.default = {
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(45), __esModule: true };
+module.exports = { "default": __webpack_require__(46), __esModule: true };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2303,7 +2328,7 @@ module.exports = { "default": __webpack_require__(45), __esModule: true };
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(43);
+var _defineProperty = __webpack_require__(44);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -2325,10 +2350,10 @@ exports.default = function (obj, key, value) {
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(48);
+__webpack_require__(49);
 var $Object = __webpack_require__(8).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -2336,16 +2361,16 @@ module.exports = function defineProperty(it, key, desc) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(2) && !__webpack_require__(10)(function () {
-  return Object.defineProperty(__webpack_require__(24)('div'), 'a', { get: function () { return 7; } }).a != 7;
+  return Object.defineProperty(__webpack_require__(26)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
@@ -2363,7 +2388,7 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(20);
@@ -2372,10 +2397,10 @@ $export($export.S + $export.F * !__webpack_require__(2), 'Object', { definePrope
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(25)(undefined);
+exports = module.exports = __webpack_require__(24)(undefined);
 // imports
 
 
@@ -2386,13 +2411,13 @@ exports.push([module.i, "\n.slide-fade-enter-active[data-v-987a968e] {\n\t-webki
 
 
 /***/ }),
-/* 50 */,
 /* 51 */,
 /* 52 */,
 /* 53 */,
 /* 54 */,
 /* 55 */,
-/* 56 */
+/* 56 */,
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -2400,7 +2425,7 @@ var Component = __webpack_require__(7)(
   /* script */
   __webpack_require__(29),
   /* template */
-  __webpack_require__(58),
+  __webpack_require__(59),
   /* styles */
   null,
   /* scopeId */
@@ -2432,19 +2457,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(60)
+  __webpack_require__(61)
 }
 var Component = __webpack_require__(7)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(59),
+  __webpack_require__(60),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -2476,7 +2501,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2495,7 +2520,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2577,17 +2602,17 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(49);
+var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(26)("66522139", content, false);
+var update = __webpack_require__(25)("66522139", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -2603,7 +2628,7 @@ if(false) {
 }
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 /**

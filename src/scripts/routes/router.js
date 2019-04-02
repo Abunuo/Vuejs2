@@ -8,6 +8,7 @@ import vuex from '../views/vuex/route.js';
 import dataORcomputed from '../views/dataORcomputed/route.js';
 import grid from '../views/grid/route.js';
 import html2canvas from '../views/html2canvas/route.js';
+import inputORscroll from '../views/inputORscroll/route.js';
 
 const router = new VueRouter({
   mode: 'history',
@@ -19,6 +20,7 @@ const router = new VueRouter({
       dataORcomputed,
       grid,
       html2canvas,
+      inputORscroll,
 
       error//404一定放在最下面
   ]
