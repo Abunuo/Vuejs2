@@ -14,7 +14,7 @@
 		Molonogue
 	</p>
 	<my-compontent :value="123">abunuo</my-compontent>
-	<div id="gradient"></div>
+	<div id="gradient" @click="staticUpdate"></div>
 </div>
 </template>
 
@@ -51,19 +51,21 @@
     			total: 0,
     			a: '我是第一个',
     			show: true,
+				staticData: 1,  //视图层未使用的数据更新不会触发视图层更新，故不存在 updated 周期的触发
     		}
     	},
     	created() {
     		debug('index created');
     		_debug('_index created');
     		this.$on('update', function(val) {
-    			console.log('updateTotal: ' + val)
+    			console.log('updated 周期触发：updateTotal: ' + val);
+				console.log(this.staticData);
     		})
     		this.$watch('total', function(newVal, oldVal) {
-    			console.log('data is change:' + oldVal + '->' + newVal);
+    			console.log('监听 data(total) 触发' + oldVal + '->' + newVal);
     		})
     		this.$watch('show', function(newVal, oldVal) { //等同于下面的 watch
-    			console.log('$watch-show is change:' + oldVal + '->' + newVal);
+    			console.log('监听 data(show) 触发： is change:' + oldVal + '->' + newVal);
     		})
     	},
     	computed: { //计算属性
@@ -79,7 +81,10 @@
     	methods: { //事件方法
     		incrementTotal: function() {
     			this.total += 1;
-    		}
+    		},
+			staticUpdate: function(){
+				this.staticData ++;
+			}
     	},
     	updated() {
     		this.$emit('update', this.total)
@@ -125,7 +130,7 @@
     	},
     	watch: {
     		show: function(newVal, oldVal) { //等同于上面的事件监听
-    			console.log('watch-show is change:' + oldVal + '->' + newVal);
+    			console.log('watch 周期触发: watch-show is change:' + oldVal + '->' + newVal);
     		}
     	}
     }
