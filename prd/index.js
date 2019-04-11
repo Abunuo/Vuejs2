@@ -1788,7 +1788,7 @@ exports.default = {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _debug2 = __webpack_require__(5);
@@ -1846,92 +1846,97 @@ var debug = (0, _debug3.default)('vue:index');
 var _debug = (0, _debug3.default)('vue:_index');
 
 exports.default = {
-	data: function data() {
-		return {
-			name: 'Monologue',
-			total: 0,
-			a: '我是第一个',
-			show: true
-		};
-	},
-	created: function created() {
-		debug('index created');
-		_debug('_index created');
-		this.$on('update', function (val) {
-			console.log('updateTotal: ' + val);
-		});
-		this.$watch('total', function (newVal, oldVal) {
-			console.log('data is change:' + oldVal + '->' + newVal);
-		});
-		this.$watch('show', function (newVal, oldVal) {
-			//等同于下面的 watch
-			console.log('$watch-show is change:' + oldVal + '->' + newVal);
-		});
-	},
+  data: function data() {
+    return {
+      name: 'Monologue',
+      total: 0,
+      a: '我是第一个',
+      show: true,
+      staticData: 1 //视图层未使用的数据更新不会触发视图层更新，故不存在 updated 周期的触发
+    };
+  },
+  created: function created() {
+    debug('index created');
+    _debug('_index created');
+    this.$on('update', function (val) {
+      console.log('updated 周期触发：updateTotal: ' + val);
+      console.log(this.staticData);
+    });
+    this.$watch('total', function (newVal, oldVal) {
+      console.log('监听 data(total) 触发' + oldVal + '->' + newVal);
+    });
+    this.$watch('show', function (newVal, oldVal) {
+      //等同于下面的 watch
+      console.log('监听 data(show) 触发： is change:' + oldVal + '->' + newVal);
+    });
+  },
 
-	computed: {//计算属性
+  computed: {//计算属性
 
-	},
-	directives: { //自定义指令
-		autoSub: {
-			inserted: function inserted(el) {
-				el.click();
-			}
-		}
-	},
-	methods: { //事件方法
-		incrementTotal: function incrementTotal() {
-			this.total += 1;
-		}
-	},
-	updated: function updated() {
-		this.$emit('update', this.total);
-	},
+  },
+  directives: { //自定义指令
+    autoSub: {
+      inserted: function inserted(el) {
+        el.click();
+      }
+    }
+  },
+  methods: { //事件方法
+    incrementTotal: function incrementTotal() {
+      this.total += 1;
+    },
+    staticUpdate: function staticUpdate() {
+      this.staticData++;
+    }
+  },
+  updated: function updated() {
+    this.$emit('update', this.total);
+  },
 
-	components: { //组件
-		buttonCounter: _buttonCounter2.default,
-		myCompontent: {
-			//利用 render 渲染页面
-			// render(createElement) {
-			//   return createElement(
-			//     'h2',
-			//     [  // 渲染模板
-			//       'Hello',
-			//       createElement('br'),
-			//       'World!'
-			//     ]
-			//   )
-			// }
+  components: { //组件
+    buttonCounter: _buttonCounter2.default,
+    myCompontent: {
+      //利用 render 渲染页面
+      // render(createElement) {
+      //   return createElement(
+      //     'h2',
+      //     [  // 渲染模板
+      //       'Hello',
+      //       createElement('br'),
+      //       'World!'
+      //     ]
+      //   )
+      // }
 
-			// template: '<h2>abc</h2>' //利用 template
+      // template: '<h2>abc</h2>' //利用 template
 
-			render: function render(createElement) {
-				var h = arguments[0];
-				//安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
-				return h(
-					'div',
-					null,
-					[h(
-						'h2',
-						null,
-						[' ', this.$slots.default[0].text, ' + ', this.$vnode.data.attrs.value, ' ']
-					), ' ', h(
-						'h2',
-						null,
-						[' \u7B49\u540C\u4E8E\uFF1A ', this.$slots.default[0].text, ' + ', this.$attrs.value, ' ']
-					), ' ']
-				);
-			}
-		}
-	},
-	mounted: function mounted() {},
+      render: function render(createElement) {
+        var h = arguments[0];
+        //安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
+        return h(
+          'div',
+          null,
+          [h(
+            'h2',
+            null,
+            [' ', this.$slots.default[0].text, ' + ', this.$vnode.data.attrs.value, ' ']
+          ), ' ', h(
+            'h2',
+            null,
+            [' \u7B49\u540C\u4E8E\uFF1A ', this.$slots.default[0].text, ' + ', this.$attrs.value, ' ']
+          ), ' ']
+        );
+      }
+    }
+  },
+  mounted: function mounted() {},
 
-	watch: {
-		show: function show(newVal, oldVal) {
-			//等同于上面的事件监听
-			console.log('watch-show is change:' + oldVal + '->' + newVal);
-		}
-	}
+  watch: {
+    show: function show(newVal, oldVal) {
+      //等同于上面的事件监听
+      console.log('watch 周期触发: watch-show is change:' + oldVal + '->' + newVal);
+    }
+  }
 };
 
 /***/ }),
@@ -2590,6 +2595,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("abunuo")]), _vm._v(" "), _c('div', {
     attrs: {
       "id": "gradient"
+    },
+    on: {
+      "click": _vm.staticUpdate
     }
   })], 1)
 },staticRenderFns: []}
