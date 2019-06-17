@@ -11,6 +11,9 @@ import html2canvas from '../views/html2canvas/route.js';
 import inputORscroll from '../views/inputORscroll/route.js';
 import viewport from '../views/viewport/route.js';
 
+/*
+    mode： hash(#)(default)、history、abstract(node)
+ */
 const router = new VueRouter({
   mode: 'history',
   routes: [

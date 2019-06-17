@@ -1,37 +1,37 @@
 <template>
-<div id="container">
-	<p>{{ total }}</p>
-	<button-counter v-autoSub v-on:increment="incrementTotal"></button-counter>
-	<button-counter v-on:increment="incrementTotal" v-bind:name="a"></button-counter>
-	<button-counter v-on:increment="incrementTotal" v-bind:age="'我是第二个'" />
-	<router-link ref="goTo" to="/second">点我跳转第二个</router-link>
-	<br>
-	<button @click="show = !show" v-bind:style="{color:'red', fontSize:'14px', width:'auto', lineHeight:'30px', marginTop:'.2rem'}"> 点击我看动画 </button>
-	<transition name="slide-fade">
-		<p v-show="show">hello</p>
-	</transition>
-	<p v-if="show" transition="fade">
-		Molonogue
-	</p>
-	<my-compontent :value="123">abunuo</my-compontent>
-	<div id="gradient" @click="staticUpdate"></div>
-</div>
+	<div id="container">
+		<p>{{ total }}</p>
+		<button-counter v-autoSub v-on:increment="incrementTotal"></button-counter>
+		<button-counter v-on:increment="incrementTotal" v-bind:name="a"></button-counter>
+		<button-counter v-on:increment="incrementTotal" v-bind:age="'我是第二个'" />
+		<router-link ref="goTo" to="/second">点我跳转第二个</router-link>
+		<br>
+		<button @click="show = !show" v-bind:style="{color:'red', fontSize:'14px', width:'auto', lineHeight:'30px', marginTop:'.2rem'}"> 点击我看动画 </button>
+		<transition name="slide-fade">
+			<p v-show="show">hello</p>
+		</transition>
+		<p v-if="show" transition="fade">
+			Molonogue
+		</p>
+		<my-compontent :value="123">abunuo</my-compontent>
+		<div id="gradient" @click="staticUpdate"></div>
+	</div>
 </template>
 
 <style scoped>
-.slide-fade-enter-active {
-	transition: all .3s ease;
-}
+	.slide-fade-enter-active {
+		transition: all .3s ease;
+	}
 
-.slide-fade-leave-active {
-	transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
+	.slide-fade-leave-active {
+		transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+	}
 
-.slide-fade-enter,
-.slide-fade-leave-active {
-	transform: translateX(50px);
-	opacity: 0;
-}
+	.slide-fade-enter,
+	.slide-fade-leave-active {
+		transform: translateX(50px);
+		opacity: 0;
+	}
 </style>
 
 <script>

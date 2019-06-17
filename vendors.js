@@ -9,5 +9,6 @@ module.exports  = [
   'vue',
   'vue-router',
   'vue-resource',
-  'debug'
+  'debug',
+  'axios'
 ]

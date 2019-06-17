@@ -2,6 +2,10 @@ import '../styles/app.scss';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
+import Axios from 'axios';
+import VueAxios from 'vue-axios';
+
 // import _ from 'lodash';
 
 // 浏览器模拟控制台
@@ -23,6 +27,7 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 Vue.use(VueRouter);
+Vue.use(VueAxios, Axios)
 // Vue.use(_);
 
 
