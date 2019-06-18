@@ -25,7 +25,7 @@ module.exports = {
     contentBase: __dirname + '/prd',
     port: 8000,
     inline: true,
-    // hot: true,
+    hot: true,  // 启用 webpack 的 模块热替换 功能  -->  热更新不会刷新页面，不启动会刷新当前页
     // proxy: {
     //   '/rest/*': {
     //     target: 'http://localhost:8888',
@@ -35,7 +35,8 @@ module.exports = {
     //     }
     //   }
     // },
-    open: false,  //自动打开浏览器
+    https: false,  //默认使用 http，可以修改为 https
+    open: true,  //自动打开浏览器
     host: macIp, //ip 打开 ip为当前主机网络 ip
     historyApiFallback:true,  //开发的时候用，生产环境服务器端配置  //当路由使用 history 是设置此项为 true（解决直接跳转子路由返回 404 问题）
   },
@@ -87,6 +88,7 @@ module.exports = {
     //   $: "zepto",
     //   _: 'lodash'
     // }),
+    new webpack.HotModuleReplacementPlugin(),  // 启用热替换模块(Hot Module Replacement)，也被称为 HMR。
     new webpack.optimize.CommonsChunkPlugin({   //公共模块单独打包成 vendor 文件
         name: ["vendor"],
         minChunks: Infinity // 提取所有entry共同依赖的模块
