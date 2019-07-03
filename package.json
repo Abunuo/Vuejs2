@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "cross-env NODE_ENV=pro webpack",
     "server": "cross-env NODE_ENV=dev webpack-dev-server"
   },
   "author": "Monologue",
@@ -43,7 +43,8 @@
     "vuex": "^2.3.1",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.11.3",
-    "zepto": "^1.2.0"
+    "zepto": "^1.2.0",
+    "zip-webpack-plugin": "^2.1.0"
   },
   "dependencies": {
     "axios": "^0.19.0",

@@ -1,6 +1,21 @@
-webpackJsonp([5],{
+webpackJsonp([6],{
 
-/***/ 134:
+/***/ 137:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(35)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.wrap[data-v-247bb5d3] {\n    width: 100%;\n    height: 100%;\n    font-size: 18px;\n}\nh1[data-v-247bb5d3] {\n    font-size: 24px;\n    text-align: center;\n    margin-bottom: 20px;\n}\n.grid-wrap[data-v-247bb5d3] {\n    width: 100%;\n    height: calc(100% - 200px);\n    display: grid;\n    grid-template-columns: 200px 200px 200px;  /* 内容水平布局 当justify-content: center;时，auto 默认内容宽度 */\n    grid-template-rows: 25% auto 200px 25%;  /* 内容垂直布局 当align-content: center;时，auto 默认内容高度 */\n    /* justify-items: center;\n    align-items:    center; */\n    place-items: center center;  /* justify 与 align 简写 */\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center; /* 容器布局 */\n    -ms-flex-line-pack: center;\n        align-content: center; /* 容器布局 */\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 168:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61,22 +76,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 178:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(24)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\n.wrap[data-v-247bb5d3] {\n    width: 100%;\n    height: 100%;\n    font-size: 18px;\n}\nh1[data-v-247bb5d3] {\n    font-size: 24px;\n    text-align: center;\n    margin-bottom: 20px;\n}\n.grid-wrap[data-v-247bb5d3] {\n    width: 100%;\n    height: calc(100% - 200px);\n    display: grid;\n    grid-template-columns: 200px 200px 200px;  /* 内容水平布局 当justify-content: center;时，auto 默认内容宽度 */\n    grid-template-rows: 25% auto 200px 25%;  /* 内容垂直布局 当align-content: center;时，auto 默认内容高度 */\n    /* justify-items: center;\n    align-items:    center; */\n    place-items: center center;  /* justify 与 align 简写 */\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center; /* 容器布局 */\n    -ms-flex-line-pack: center;\n        align-content: center; /* 容器布局 */\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 211:
+/***/ 243:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -107,33 +107,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("9")])])])
 }]}
 module.exports.render._withStripped = true
-if (false) {
+if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-247bb5d3", module.exports)
+     __webpack_require__(3).rerender("data-v-247bb5d3", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 217:
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(178);
+var content = __webpack_require__(137);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(25)("09b68db2", content, false);
+var update = __webpack_require__(36)("09b68db2", content, false);
 // Hot Module Replacement
-if(false) {
+if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-247bb5d3\",\"scoped\":true,\"hasInlineConfig\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./grid.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-247bb5d3\",\"scoped\":true,\"hasInlineConfig\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./grid.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+   module.hot.accept(137, function() {
+     var newContent = __webpack_require__(137);
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
  }
@@ -143,19 +143,19 @@ if(false) {
 
 /***/ }),
 
-/***/ 69:
+/***/ 98:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(217)
+  __webpack_require__(250)
 }
-var Component = __webpack_require__(7)(
+var Component = __webpack_require__(12)(
   /* script */
-  __webpack_require__(134),
+  __webpack_require__(168),
   /* template */
-  __webpack_require__(211),
+  __webpack_require__(243),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -168,9 +168,9 @@ if (Component.esModule && Object.keys(Component.esModule).some(function (key) {r
 if (Component.options.functional) {console.error("[vue-loader] grid.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
+if (true) {(function () {
+  var hotAPI = __webpack_require__(3)
+  hotAPI.install(__webpack_require__(1), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {

@@ -1,6 +1,66 @@
-webpackJsonp([4],{
+webpackJsonp([5],{
 
-/***/ 136:
+/***/ 100:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(251)
+}
+var Component = __webpack_require__(12)(
+  /* script */
+  __webpack_require__(170),
+  /* template */
+  __webpack_require__(244),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-54e5ea89",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/monologue/Documents/workSpace/vueJs_2.0/src/scripts/views/inputORscroll/inputORscroll.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] inputORscroll.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (true) {(function () {
+  var hotAPI = __webpack_require__(3)
+  hotAPI.install(__webpack_require__(1), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-54e5ea89", Component.options)
+  } else {
+    hotAPI.reload("data-v-54e5ea89", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 138:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(35)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.container[data-v-54e5ea89] {\n    width: 100%;\n    height: 100%;\n    overflow: scroll;\n}\n.scrollwrap[data-v-54e5ea89] {\n    width: 100%;\n    height: 300%;\n}\n.input-inner[data-v-54e5ea89] {\n    width: 50%;\n    margin: 20px auto;\n    font-size: 16px;\n}\ninput[data-v-54e5ea89] {\n    width: 100%;\n    height: 30px;\n    border: 1px solid #dee0e1;\n    padding: 0 6px;\n    margin-top: 10px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 170:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67,22 +127,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 179:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(24)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\n.container[data-v-54e5ea89] {\n    width: 100%;\n    height: 100%;\n    overflow: scroll;\n}\n.scrollwrap[data-v-54e5ea89] {\n    width: 100%;\n    height: 300%;\n}\n.input-inner[data-v-54e5ea89] {\n    width: 50%;\n    margin: 20px auto;\n    font-size: 16px;\n}\ninput[data-v-54e5ea89] {\n    width: 100%;\n    height: 30px;\n    border: 1px solid #dee0e1;\n    padding: 0 6px;\n    margin-top: 10px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 212:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -125,84 +170,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
-if (false) {
+if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-54e5ea89", module.exports)
+     __webpack_require__(3).rerender("data-v-54e5ea89", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 218:
+/***/ 251:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(179);
+var content = __webpack_require__(138);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(25)("6e97420a", content, false);
+var update = __webpack_require__(36)("6e97420a", content, false);
 // Hot Module Replacement
-if(false) {
+if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54e5ea89\",\"scoped\":true,\"hasInlineConfig\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputORscroll.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54e5ea89\",\"scoped\":true,\"hasInlineConfig\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputORscroll.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+   module.hot.accept(138, function() {
+     var newContent = __webpack_require__(138);
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
  }
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
-
-/***/ }),
-
-/***/ 71:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(218)
-}
-var Component = __webpack_require__(7)(
-  /* script */
-  __webpack_require__(136),
-  /* template */
-  __webpack_require__(212),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-54e5ea89",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/monologue/Documents/workSpace/vueJs_2.0/src/scripts/views/inputORscroll/inputORscroll.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] inputORscroll.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-54e5ea89", Component.options)
-  } else {
-    hotAPI.reload("data-v-54e5ea89", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ })
 

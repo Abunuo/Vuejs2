@@ -1,17 +1,253 @@
 webpackJsonp([2],[
 /* 0 */,
 /* 1 */,
-/* 2 */
+/* 2 */,
+/* 3 */
+/***/ (function(module, exports) {
+
+var Vue // late bind
+var version
+var map = (window.__VUE_HOT_MAP__ = Object.create(null))
+var installed = false
+var isBrowserify = false
+var initHookName = 'beforeCreate'
+
+exports.install = function (vue, browserify) {
+  if (installed) { return }
+  installed = true
+
+  Vue = vue.__esModule ? vue.default : vue
+  version = Vue.version.split('.').map(Number)
+  isBrowserify = browserify
+
+  // compat with < 2.0.0-alpha.7
+  if (Vue.config._lifecycleHooks.indexOf('init') > -1) {
+    initHookName = 'init'
+  }
+
+  exports.compatible = version[0] >= 2
+  if (!exports.compatible) {
+    console.warn(
+      '[HMR] You are using a version of vue-hot-reload-api that is ' +
+        'only compatible with Vue.js core ^2.0.0.'
+    )
+    return
+  }
+}
+
+/**
+ * Create a record for a hot module, which keeps track of its constructor
+ * and instances
+ *
+ * @param {String} id
+ * @param {Object} options
+ */
+
+exports.createRecord = function (id, options) {
+  var Ctor = null
+  if (typeof options === 'function') {
+    Ctor = options
+    options = Ctor.options
+  }
+  makeOptionsHot(id, options)
+  map[id] = {
+    Ctor: Ctor,
+    options: options,
+    instances: []
+  }
+}
+
+/**
+ * Make a Component options object hot.
+ *
+ * @param {String} id
+ * @param {Object} options
+ */
+
+function makeOptionsHot(id, options) {
+  if (options.functional) {
+    var render = options.render
+    options.render = function (h, ctx) {
+      var instances = map[id].instances
+      if (ctx && instances.indexOf(ctx.parent) < 0) {
+        instances.push(ctx.parent)
+      }
+      return render(h, ctx)
+    }
+  } else {
+    injectHook(options, initHookName, function() {
+      var record = map[id]
+      if (!record.Ctor) {
+        record.Ctor = this.constructor
+      }
+      record.instances.push(this)
+    })
+    injectHook(options, 'beforeDestroy', function() {
+      var instances = map[id].instances
+      instances.splice(instances.indexOf(this), 1)
+    })
+  }
+}
+
+/**
+ * Inject a hook to a hot reloadable component so that
+ * we can keep track of it.
+ *
+ * @param {Object} options
+ * @param {String} name
+ * @param {Function} hook
+ */
+
+function injectHook(options, name, hook) {
+  var existing = options[name]
+  options[name] = existing
+    ? Array.isArray(existing) ? existing.concat(hook) : [existing, hook]
+    : [hook]
+}
+
+function tryWrap(fn) {
+  return function (id, arg) {
+    try {
+      fn(id, arg)
+    } catch (e) {
+      console.error(e)
+      console.warn(
+        'Something went wrong during Vue component hot-reload. Full reload required.'
+      )
+    }
+  }
+}
+
+function updateOptions (oldOptions, newOptions) {
+  for (var key in oldOptions) {
+    if (!(key in newOptions)) {
+      delete oldOptions[key]
+    }
+  }
+  for (var key$1 in newOptions) {
+    oldOptions[key$1] = newOptions[key$1]
+  }
+}
+
+exports.rerender = tryWrap(function (id, options) {
+  var record = map[id]
+  if (!options) {
+    record.instances.slice().forEach(function (instance) {
+      instance.$forceUpdate()
+    })
+    return
+  }
+  if (typeof options === 'function') {
+    options = options.options
+  }
+  if (record.Ctor) {
+    record.Ctor.options.render = options.render
+    record.Ctor.options.staticRenderFns = options.staticRenderFns
+    record.instances.slice().forEach(function (instance) {
+      instance.$options.render = options.render
+      instance.$options.staticRenderFns = options.staticRenderFns
+      // reset static trees
+      // pre 2.5, all static trees are cahced together on the instance
+      if (instance._staticTrees) {
+        instance._staticTrees = []
+      }
+      // 2.5.0
+      if (Array.isArray(record.Ctor.options.cached)) {
+        record.Ctor.options.cached = []
+      }
+      // 2.5.3
+      if (Array.isArray(instance.$options.cached)) {
+        instance.$options.cached = []
+      }
+      // post 2.5.4: v-once trees are cached on instance._staticTrees.
+      // Pure static trees are cached on the staticRenderFns array
+      // (both already reset above)
+      instance.$forceUpdate()
+    })
+  } else {
+    // functional or no instance created yet
+    record.options.render = options.render
+    record.options.staticRenderFns = options.staticRenderFns
+
+    // handle functional component re-render
+    if (record.options.functional) {
+      // rerender with full options
+      if (Object.keys(options).length > 2) {
+        updateOptions(record.options, options)
+      } else {
+        // template-only rerender.
+        // need to inject the style injection code for CSS modules
+        // to work properly.
+        var injectStyles = record.options._injectStyles
+        if (injectStyles) {
+          var render = options.render
+          record.options.render = function (h, ctx) {
+            injectStyles.call(ctx)
+            return render(h, ctx)
+          }
+        }
+      }
+      record.options._Ctor = null
+      // 2.5.3
+      if (Array.isArray(record.options.cached)) {
+        record.options.cached = []
+      }
+      record.instances.slice().forEach(function (instance) {
+        instance.$forceUpdate()
+      })
+    }
+  }
+})
+
+exports.reload = tryWrap(function (id, options) {
+  var record = map[id]
+  if (options) {
+    if (typeof options === 'function') {
+      options = options.options
+    }
+    makeOptionsHot(id, options)
+    if (record.Ctor) {
+      if (version[1] < 2) {
+        // preserve pre 2.2 behavior for global mixin handling
+        record.Ctor.extendOptions = options
+      }
+      var newCtor = record.Ctor.super.extend(options)
+      record.Ctor.options = newCtor.options
+      record.Ctor.cid = newCtor.cid
+      record.Ctor.prototype = newCtor.prototype
+      if (newCtor.release) {
+        // temporary global mixin strategy used in < 2.0.0-alpha.6
+        newCtor.release()
+      }
+    } else {
+      updateOptions(record.options, options)
+    }
+  }
+  record.instances.slice().forEach(function (instance) {
+    if (instance.$vnode && instance.$vnode.context) {
+      instance.$vnode.context.$forceUpdate()
+    } else {
+      console.warn(
+        'Root or manually mounted instance modified. Full reload required.'
+      )
+    }
+  })
+})
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(10)(function () {
+module.exports = !__webpack_require__(15)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 3 */
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -20,9 +256,24 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 4 */,
-/* 5 */,
-/* 6 */
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(35)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.slide-fade-enter-active[data-v-987a968e] {\n\t-webkit-transition: all .3s ease;\n\ttransition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-987a968e] {\n\t-webkit-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n\ttransition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-987a968e],\n.slide-fade-leave-active[data-v-987a968e] {\n\t-webkit-transform: translateX(50px);\n\t        transform: translateX(50px);\n\topacity: 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -34,7 +285,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 7 */
+/* 12 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -131,7 +382,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 8 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var core = module.exports = { version: '2.5.1' };
@@ -139,15 +390,15 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 9 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(19);
-var IE8_DOM_DEFINE = __webpack_require__(47);
-var toPrimitive = __webpack_require__(48);
+var anObject = __webpack_require__(32);
+var IE8_DOM_DEFINE = __webpack_require__(77);
+var toPrimitive = __webpack_require__(78);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(2) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(4) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -161,7 +412,7 @@ exports.f = __webpack_require__(2) ? Object.defineProperty : function defineProp
 
 
 /***/ }),
-/* 10 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -174,7 +425,15 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 11 */
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -193,8 +452,7 @@ var mutationsType = {
 exports.default = mutationsType;
 
 /***/ }),
-/* 12 */,
-/* 13 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -204,51 +462,58 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vueRouter = __webpack_require__(0);
+var _vueRouter = __webpack_require__(2);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
-var _route = __webpack_require__(37);
+var _route = __webpack_require__(66);
 
 var _route2 = _interopRequireDefault(_route);
 
-var _route3 = __webpack_require__(40);
+var _route3 = __webpack_require__(69);
 
 var _route4 = _interopRequireDefault(_route3);
 
-var _route5 = __webpack_require__(42);
+var _route5 = __webpack_require__(71);
 
 var _route6 = _interopRequireDefault(_route5);
 
-var _route7 = __webpack_require__(35);
+var _route7 = __webpack_require__(64);
 
 var _route8 = _interopRequireDefault(_route7);
 
-var _route9 = __webpack_require__(43);
+var _route9 = __webpack_require__(73);
 
 var _route10 = _interopRequireDefault(_route9);
 
-var _route11 = __webpack_require__(36);
+var _route11 = __webpack_require__(65);
 
 var _route12 = _interopRequireDefault(_route11);
 
-var _route13 = __webpack_require__(38);
+var _route13 = __webpack_require__(67);
 
 var _route14 = _interopRequireDefault(_route13);
 
-var _route15 = __webpack_require__(39);
+var _route15 = __webpack_require__(68);
 
 var _route16 = _interopRequireDefault(_route15);
 
-var _route17 = __webpack_require__(41);
+var _route17 = __webpack_require__(70);
 
 var _route18 = _interopRequireDefault(_route17);
 
+var _route19 = __webpack_require__(72);
+
+var _route20 = _interopRequireDefault(_route19);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/*
+    mode： hash(#)(default)、history、abstract(node)
+ */
 var router = new _vueRouter2.default({
   mode: 'history',
-  routes: [_route4.default, _route6.default, _route8.default, _route10.default, _route12.default, _route14.default, _route16.default, _route18.default, _route2.default //404一定放在最下面
+  routes: [_route4.default, _route6.default, _route8.default, _route10.default, _route12.default, _route14.default, _route16.default, _route18.default, _route20.default, _route2.default //404一定放在最下面
   ]
 });
 
@@ -278,7 +543,7 @@ router.beforeEach(function (to, from, next) {
 exports.default = router;
 
 /***/ }),
-/* 14 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -292,19 +557,19 @@ var _vue = __webpack_require__(1);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vuex = __webpack_require__(28);
+var _vuex = __webpack_require__(41);
 
 var _vuex2 = _interopRequireDefault(_vuex);
 
-var _actions = __webpack_require__(32);
+var _actions = __webpack_require__(61);
 
 var actions = _interopRequireWildcard(_actions);
 
-var _getters = __webpack_require__(33);
+var _getters = __webpack_require__(62);
 
 var getters = _interopRequireWildcard(_getters);
 
-var _module = __webpack_require__(34);
+var _module = __webpack_require__(63);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -325,19 +590,27 @@ exports.default = new _vuex2.default.Store({
 });
 
 /***/ }),
-/* 15 */,
-/* 16 */
+/* 27 */,
+/* 28 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 17 */,
-/* 18 */,
-/* 19 */
+/* 29 */,
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(3);
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(o){return typeof o}:function(o){return o&&"function"==typeof Symbol&&o.constructor===Symbol&&o!==Symbol.prototype?"symbol":typeof o};!function(){function o(e,t){if(!o.installed){if(o.installed=!0,!t)return void console.error("You have to install axios");e.axios=t,Object.defineProperties(e.prototype,{axios:{get:function(){return t}},$http:{get:function(){return t}}})}}"object"==( false?"undefined":_typeof(exports))?module.exports=o: true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function(){return o}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):window.Vue&&window.axios&&Vue.use(o,window.axios)}();
+
+/***/ }),
+/* 31 */,
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(6);
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -345,13 +618,13 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 20 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(6);
-var core = __webpack_require__(8);
-var ctx = __webpack_require__(23);
-var hide = __webpack_require__(21);
+var global = __webpack_require__(11);
+var core = __webpack_require__(13);
+var ctx = __webpack_require__(38);
+var hide = __webpack_require__(34);
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -412,12 +685,12 @@ module.exports = $export;
 
 
 /***/ }),
-/* 21 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(9);
-var createDesc = __webpack_require__(27);
-module.exports = __webpack_require__(2) ? function (object, key, value) {
+var dP = __webpack_require__(14);
+var createDesc = __webpack_require__(40);
+module.exports = __webpack_require__(4) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -426,43 +699,7 @@ module.exports = __webpack_require__(2) ? function (object, key, value) {
 
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// optional / simple context binding
-var aFunction = __webpack_require__(22);
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-
-/***/ }),
-/* 24 */
+/* 35 */
 /***/ (function(module, exports) {
 
 /*
@@ -544,7 +781,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 25 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -563,7 +800,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(62)
+var listToStyles = __webpack_require__(91)
 
 /*
 type StyleObject = {
@@ -765,11 +1002,47 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 26 */
+/* 37 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(3);
-var document = __webpack_require__(6).document;
+// optional / simple context binding
+var aFunction = __webpack_require__(37);
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(6);
+var document = __webpack_require__(11).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -778,7 +1051,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 27 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -792,7 +1065,7 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 28 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1737,7 +2010,23 @@ var index_esm = {
 
 
 /***/ }),
-/* 29 */
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1781,7 +2070,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 30 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1791,11 +2080,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _debug2 = __webpack_require__(5);
+var _debug2 = __webpack_require__(10);
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _buttonCounter = __webpack_require__(57);
+var _buttonCounter = __webpack_require__(86);
 
 var _buttonCounter2 = _interopRequireDefault(_buttonCounter);
 
@@ -1940,33 +2229,42 @@ exports.default = {
 };
 
 /***/ }),
-/* 31 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(16);
+__webpack_require__(28);
 
 var _vue = __webpack_require__(1);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _vueRouter = __webpack_require__(0);
+var _vueRouter = __webpack_require__(2);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
-var _router = __webpack_require__(13);
+var _axios = __webpack_require__(5);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _vueAxios = __webpack_require__(30);
+
+var _vueAxios2 = _interopRequireDefault(_vueAxios);
+
+var _router = __webpack_require__(25);
 
 var _router2 = _interopRequireDefault(_router);
 
-var _store = __webpack_require__(14);
+var _store = __webpack_require__(26);
 
 var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //引入 debug，浏览器需要设置 localStorage.debug
+
 
 // import _ from 'lodash';
 
@@ -1985,6 +2283,7 @@ if (true) {
 }
 
 _vue2.default.use(_vueRouter2.default);
+_vue2.default.use(_vueAxios2.default, _axios2.default);
 // Vue.use(_);
 
 
@@ -2005,7 +2304,7 @@ new _vue2.default({
 }).$mount('router-view'); //等同于 el: '#app'  https://segmentfault.com/a/1190000009467029
 
 /***/ }),
-/* 32 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2016,7 +2315,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.logName = undefined;
 
-var _mutationsTypes = __webpack_require__(11);
+var _mutationsTypes = __webpack_require__(24);
 
 var _mutationsTypes2 = _interopRequireDefault(_mutationsTypes);
 
@@ -2031,7 +2330,7 @@ var logName = exports.logName = function logName(_ref) {
 };
 
 /***/ }),
-/* 33 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2045,7 +2344,7 @@ var getLog = exports.getLog = function getLog(state) {
 };
 
 /***/ }),
-/* 34 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2055,13 +2354,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = __webpack_require__(45);
+var _defineProperty2 = __webpack_require__(75);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _mutations;
 
-var _mutationsTypes = __webpack_require__(11);
+var _mutationsTypes = __webpack_require__(24);
 
 var _mutationsTypes2 = _interopRequireDefault(_mutationsTypes);
 
@@ -2102,7 +2401,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 35 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2114,7 +2413,7 @@ Object.defineProperty(exports, "__esModule", {
 //import async from './async.vue';
 // const async = r => require.ensure([], () => r(require('./async.vue')), 'async');
 var async = function async() {
-    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 66));
+    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 95));
 };
 
 exports.default = {
@@ -2123,7 +2422,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 36 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2136,7 +2435,7 @@ Object.defineProperty(exports, "__esModule", {
 //等同于 import，按需加载当前组件
 // const dataORcomputed = r => require.ensure( [], () => r (require('./dataORcomputed.vue')), 'dataORcomputed');
 var dataORcomputed = function dataORcomputed() {
-    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 67));
+    return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 96));
 };
 
 exports.default = {
@@ -2145,7 +2444,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 37 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2157,7 +2456,7 @@ Object.defineProperty(exports, "__esModule", {
 //import error from './error.vue';
 // const error = r => require.ensure([], () => r(require('./error.vue')), 'error');
 var error = function error() {
-    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 68));
+    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 97));
 };
 exports.default = {
     path: '*',
@@ -2165,7 +2464,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 38 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2177,7 +2476,7 @@ Object.defineProperty(exports, "__esModule", {
 //import grid from './grid.vue';
 // const grid = r => require.ensure([], () => r(require('./grid.vue')), 'grid');
 var grid = function grid() {
-    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 69));
+    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 98));
 };
 
 exports.default = {
@@ -2186,7 +2485,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 39 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2198,7 +2497,7 @@ Object.defineProperty(exports, "__esModule", {
 //import html2canvas from './html2canvas.vue';
 // const html2canvas = r => require.ensure( [], () => r (require('./html2canvas.vue')), 'html2canvas');
 var html2canvas = function html2canvas() {
-    return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 70));
+    return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 99));
 };
 exports.default = {
     path: '/html2canvas',
@@ -2206,7 +2505,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 40 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2237,7 +2536,7 @@ Object.defineProperty(exports, "__esModule", {
     *** 组件不建议使用异步加载，导致多次进入 updated 周期
  */
 var index = function index() {
-    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 58));
+    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 87));
 };
 exports.default = {
     path: '/',
@@ -2245,7 +2544,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 41 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2255,7 +2554,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var inputORscroll = function inputORscroll() {
-    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 71));
+    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 100));
 };
 
 exports.default = {
@@ -2264,7 +2563,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 42 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2276,7 +2575,7 @@ Object.defineProperty(exports, "__esModule", {
 //import second from './second.vue';
 // const second = r => require.ensure([], () => r(require('./second.vue')), 'second');
 var second = function second() {
-    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 72));
+    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 101));
 };
 
 exports.default = {
@@ -2297,7 +2596,26 @@ exports.default = {
 };
 
 /***/ }),
-/* 43 */
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var viewport = function viewport() {
+    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 102));
+};
+
+exports.default = {
+    path: '/viewport',
+    component: viewport
+};
+
+/***/ }),
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2310,7 +2628,7 @@ Object.defineProperty(exports, "__esModule", {
 // const vuex = r => require.ensure( [], () => r (require('./vuex.vue')), 'vuex');
 
 var vuex = function vuex() {
-    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 73));
+    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 103));
 };
 
 exports.default = {
@@ -2319,13 +2637,13 @@ exports.default = {
 };
 
 /***/ }),
-/* 44 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(46), __esModule: true };
+module.exports = { "default": __webpack_require__(76), __esModule: true };
 
 /***/ }),
-/* 45 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2333,7 +2651,7 @@ module.exports = { "default": __webpack_require__(46), __esModule: true };
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(44);
+var _defineProperty = __webpack_require__(74);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -2355,31 +2673,31 @@ exports.default = function (obj, key, value) {
 };
 
 /***/ }),
-/* 46 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(49);
-var $Object = __webpack_require__(8).Object;
+__webpack_require__(79);
+var $Object = __webpack_require__(13).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
 
 
 /***/ }),
-/* 47 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(2) && !__webpack_require__(10)(function () {
-  return Object.defineProperty(__webpack_require__(26)('div'), 'a', { get: function () { return 7; } }).a != 7;
+module.exports = !__webpack_require__(4) && !__webpack_require__(15)(function () {
+  return Object.defineProperty(__webpack_require__(39)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 48 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(3);
+var isObject = __webpack_require__(6);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -2393,44 +2711,30 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 49 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(20);
+var $export = __webpack_require__(33);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(2), 'Object', { defineProperty: __webpack_require__(9).f });
+$export($export.S + $export.F * !__webpack_require__(4), 'Object', { defineProperty: __webpack_require__(14).f });
 
 
 /***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(24)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\n.slide-fade-enter-active[data-v-987a968e] {\n\t-webkit-transition: all .3s ease;\n\ttransition: all .3s ease;\n}\n.slide-fade-leave-active[data-v-987a968e] {\n\t-webkit-transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n\ttransition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter[data-v-987a968e],\n.slide-fade-leave-active[data-v-987a968e] {\n\t-webkit-transform: translateX(50px);\n\t        transform: translateX(50px);\n\topacity: 0;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(7)(
+var Component = __webpack_require__(12)(
   /* script */
-  __webpack_require__(29),
+  __webpack_require__(58),
   /* template */
-  __webpack_require__(59),
+  __webpack_require__(88),
   /* styles */
   null,
   /* scopeId */
@@ -2443,9 +2747,9 @@ if (Component.esModule && Object.keys(Component.esModule).some(function (key) {r
 if (Component.options.functional) {console.error("[vue-loader] buttonCounter.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
+if (true) {(function () {
+  var hotAPI = __webpack_require__(3)
+  hotAPI.install(__webpack_require__(1), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
@@ -2462,19 +2766,19 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 58 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(61)
+  __webpack_require__(90)
 }
-var Component = __webpack_require__(7)(
+var Component = __webpack_require__(12)(
   /* script */
-  __webpack_require__(30),
+  __webpack_require__(59),
   /* template */
-  __webpack_require__(60),
+  __webpack_require__(89),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -2487,9 +2791,9 @@ if (Component.esModule && Object.keys(Component.esModule).some(function (key) {r
 if (Component.options.functional) {console.error("[vue-loader] index.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
+if (true) {(function () {
+  var hotAPI = __webpack_require__(3)
+  hotAPI.install(__webpack_require__(1), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
@@ -2506,7 +2810,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 59 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2517,15 +2821,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v(_vm._s(_vm.counter))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
-if (false) {
+if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-44c4f088", module.exports)
+     __webpack_require__(3).rerender("data-v-44c4f088", module.exports)
   }
 }
 
 /***/ }),
-/* 60 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2602,32 +2906,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
-if (false) {
+if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-987a968e", module.exports)
+     __webpack_require__(3).rerender("data-v-987a968e", module.exports)
   }
 }
 
 /***/ }),
-/* 61 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(50);
+var content = __webpack_require__(7);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(25)("66522139", content, false);
+var update = __webpack_require__(36)("66522139", content, false);
 // Hot Module Replacement
-if(false) {
+if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-987a968e\",\"scoped\":true,\"hasInlineConfig\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-987a968e\",\"scoped\":true,\"hasInlineConfig\":false}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+   module.hot.accept(7, function() {
+     var newContent = __webpack_require__(7);
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
  }
@@ -2636,7 +2940,7 @@ if(false) {
 }
 
 /***/ }),
-/* 62 */
+/* 91 */
 /***/ (function(module, exports) {
 
 /**
@@ -2669,4 +2973,4 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ })
-],[31]);
+],[60]);
