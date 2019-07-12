@@ -5,13 +5,14 @@ var vendors = require('./vendors.js');
 var zipWebpackPlugin = require('zip-webpack-plugin');
 var macIp = require('os').networkInterfaces().en0[0].address;
 
-var plugins = [];
+var plugins = [],
+    publicPath = '/';
 if(process.env.NODE_ENV == 'pro') {
     plugins.push(new zipWebpackPlugin({  //代码打包成压缩包
         path: 'zip',
         filename: 'vueJs.zip',
         pathPrefix: 'vueJs',
-    }))
+    }));
 };
 
 module.exports = {
@@ -22,6 +23,7 @@ module.exports = {
 	output: {
 		path: __dirname + '/prd',
 		filename: "[name].js",
+        publicPath: '/', //使用嵌套子路由时 history 模式下，直接刷新子路由将 js 路径改为根路径
 		chunkFilename: 'chunkJS/[name].js'
 	},
 	resolve: {
@@ -90,6 +92,7 @@ module.exports = {
                 options: {
                     name: '[name].[ext]',
                     outputPath: '/images/',
+                    publicPath: '',
                     limit: 1000
                 }
             }]

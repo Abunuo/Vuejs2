@@ -8,6 +8,10 @@
     <transition name="slide-fade">
       <img v-if="show" src="../../../images/img.png"/>
     </transition>
+    <br/>
+    <router-link to="/second/error">error</router-link>
+    <router-link to="/second/vuex">vuex</router-link>
+    <router-view></router-view>
   </h3>
 </template>
 

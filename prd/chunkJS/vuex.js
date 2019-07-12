@@ -1,45 +1,4 @@
-webpackJsonp([3],{
-
-/***/ 103:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(12)(
-  /* script */
-  __webpack_require__(173),
-  /* template */
-  __webpack_require__(248),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/monologue/Documents/workSpace/vueJs_2.0/src/scripts/views/vuex/vuex.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] vuex.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(3)
-  hotAPI.install(__webpack_require__(1), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b2da4d5a", Component.options)
-  } else {
-    hotAPI.reload("data-v-b2da4d5a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+webpackJsonp([0],{
 
 /***/ 108:
 /***/ (function(module, exports) {
@@ -280,7 +239,7 @@ var _extends2 = __webpack_require__(176);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _vuex = __webpack_require__(41);
+var _vuex = __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -446,6 +405,47 @@ if (true) {
      __webpack_require__(3).rerender("data-v-b2da4d5a", module.exports)
   }
 }
+
+/***/ }),
+
+/***/ 42:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(12)(
+  /* script */
+  __webpack_require__(173),
+  /* template */
+  __webpack_require__(248),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/monologue/Documents/workSpace/vueJs_2.0/src/scripts/views/vuex/vuex.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] vuex.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (true) {(function () {
+  var hotAPI = __webpack_require__(3)
+  hotAPI.install(__webpack_require__(1), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b2da4d5a", Component.options)
+  } else {
+    hotAPI.reload("data-v-b2da4d5a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ })
 

@@ -89,7 +89,7 @@
         position: absolute;
         right: 0;
         bottom: 0;
-        background: url(../../../images/img.png)no-repeat center bottom;
+        background: url('../../../images/img.png')no-repeat center bottom;
         background-size: 80% auto;
         z-index: -1;
     }

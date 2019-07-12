@@ -1,14 +1,14 @@
-webpackJsonp([7],{
+webpackJsonp([6],{
 
-/***/ 101:
+/***/ 129:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(12)(
+var Component = __webpack_require__(4)(
   /* script */
-  __webpack_require__(171),
+  __webpack_require__(181),
   /* template */
-  __webpack_require__(242),
+  __webpack_require__(243),
   /* styles */
   null,
   /* scopeId */
@@ -22,7 +22,7 @@ if (Component.options.functional) {console.error("[vue-loader] second.vue: funct
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(3)
+  var hotAPI = __webpack_require__(2)
   hotAPI.install(__webpack_require__(1), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -41,14 +41,14 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 123:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 139:
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__.p + "/images/img.png";
+module.exports = "/images/img.png";
 
 /***/ }),
 
-/***/ 171:
+/***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57,6 +57,10 @@ module.exports = __webpack_require__.p + "/images/img.png";
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+//
+//
+//
+//
 //
 //
 //
@@ -108,7 +112,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 242:
+/***/ 243:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -165,15 +169,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(_vm.show) ? _c('img', {
     attrs: {
-      "src": __webpack_require__(123)
+      "src": __webpack_require__(139)
     }
-  }) : _vm._e()])], 1)
+  }) : _vm._e()]), _vm._v(" "), _c('br'), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/second/error"
+    }
+  }, [_vm._v("error")]), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/second/vuex"
+    }
+  }, [_vm._v("vuex")]), _vm._v(" "), _c('router-view')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(3).rerender("data-v-2402f9d3", module.exports)
+     __webpack_require__(2).rerender("data-v-2402f9d3", module.exports)
   }
 }
 
