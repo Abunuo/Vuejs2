@@ -3,7 +3,7 @@
  * by Monologue
  * @type {Array}
  */
-module.exports  = [
+module.exports = [
   'zepto',
   'lodash',
   'vue',

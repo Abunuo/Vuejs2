@@ -3,8 +3,8 @@ import '../styles/app.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Axios from 'axios';
-import VueAxios from 'vue-axios';
+// import Axios from 'axios';
+// import VueAxios from 'vue-axios';
 
 // import _ from 'lodash';
 
@@ -19,7 +19,6 @@ import store from './store/store.js';
 localStorage.debug = 'vue:*';
 
 //根据开发状态区别是否运行 vue-devtools
-
 if (process.env.NODE_ENV == 'production') {
     Vue.config.devtools = false;
 } else {
@@ -27,7 +26,7 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 Vue.use(VueRouter);
-Vue.use(VueAxios, Axios)
+// Vue.use(VueAxios, Axios)
 // Vue.use(_);
 
 
