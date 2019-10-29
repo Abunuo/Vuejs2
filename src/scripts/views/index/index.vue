@@ -1,4 +1,7 @@
 <style scoped>
+	* {
+		user-select: none;
+	}
 	.slide-fade-enter-active {
 		transition: all .3s ease;
 	}
@@ -26,7 +29,7 @@
 		<transition name="slide-fade">
 			<p v-show="show">hello</p>
 		</transition>
-		<p v-if="show" transition="fade" v-longpress="showAT(longPressData)">
+		<p v-if="show" transition="fade" v-longpress="() => showAT(longPressData)">
 			Molonogue
 		</p>
 		<my-compontent :value="123">abunuo</my-compontent>
@@ -76,6 +79,10 @@
 
     	},
     	directives: { //自定义指令
+			/*
+				自动获取焦点
+				eg.  v-autoSub
+			 */
     		autoSub: {
     			inserted: (el) => {
     				el.click();
@@ -83,7 +90,7 @@
     		},
 			/*
 				长按指令
-				eg. v-longpress:[{content:content,reply_id:reply_id}]="longtap"
+				eg.  v-longpress="() => showAT(longPressData)"
 			 */
 			'longpress': {
                 bind: function (el, binding, vNode) {
@@ -147,9 +154,7 @@
 				this.staticData ++;
 			},
 			showAT(longPressData) {
-				return () => {
-					console.log(longPressData.content, longPressData.id)
-				}
+				console.log(longPressData.content, longPressData.id)
 			}
     	},
     	updated() {
