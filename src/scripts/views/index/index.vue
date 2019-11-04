@@ -48,6 +48,17 @@
     const _debug = Debug('vue:_index');
 
     export default {
+		/**
+		 * beforeRouteEnter 执行顺序：
+		 * beforeEnterRouter1 -> created -> mounted1[ -> mounted2] -> beforeEnterRouter2[ -> mounted2]
+		 * 注：当 mounted 用 nextTick 时，mounted2 执行顺序取决于 dom 绘制时间长短
+		 */
+		beforeRouteEnter(to, from, next) {
+			console.log('beforeEnterRouter1',new Date().getTime());
+			next(vm => {
+				console.log('beforeEnterRouter2',new Date().getTime());
+			})
+		},
     	data() {
     		return {
     			name: 'Monologue',
@@ -62,6 +73,7 @@
     		}
     	},
     	created() {
+			console.log('created',new Date().getTime());
     		debug('index created');
     		_debug('_index created');
     		this.$on('update', function(val) {
@@ -75,6 +87,12 @@
     			console.log('监听 data(show) 触发： is change:' + oldVal + '->' + newVal);
     		})
     	},
+		mounted() {
+			console.log('mounted1',new Date().getTime());
+	        this.$nextTick(() => {
+				console.log('mounted2',new Date().getTime());
+			})
+		},
     	computed: { //计算属性
 
     	},
@@ -195,9 +213,6 @@
     			}
 
     		}
-    	},
-    	mounted() {
-
     	},
     	watch: {
     		show: function(newVal, oldVal) { //等同于上面的事件监听
