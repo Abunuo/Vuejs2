@@ -50,7 +50,7 @@ module.exports = {
 		},
 		overlay: false, // 如果代码出错，会在浏览器页面弹出“浮动层”。类似于 vue-cli 等脚手架
 		https: false, //默认使用 http，可以修改为 https
-		// open: true, //自动打开浏览器
+		open: true, //自动打开浏览器
 		host: macIp, //ip 打开 ip为当前主机网络 ip
 		historyApiFallback: true, //开发的时候用，生产环境服务器端配置  //当路由使用 history 是设置此项为 true（解决直接跳转子路由返回 404 问题）
 	},
