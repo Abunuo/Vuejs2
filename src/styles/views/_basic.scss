@@ -1,0 +1,34 @@
+/* 
+    全局使用导入文件建议下划线开头，这样不会被单独编译
+ */
+
+// reset
+p,
+img,
+input,
+textarea {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+// 变量
+$BASIC-COLOR: #CCC237;
+$BASIC-BACKGROUND-COLOR: #FFF;
+$BASIC-BORDER-COLOR: #DEE0E1;
+
+// 样式模板
+@mixin _border($width: 1px, $color: #DEE0E1) {
+    border-bottom: $width solid $color;
+}
+@mixin _border-radius($width: 50%) {
+    -moz-border-radius: $width;
+    -webkit-border-radius: $width;
+    border-radius: $width;
+}
+@mixin _flex($style: row) {
+    display: flex;
+    flex-direction: $style;
+    justify-content: center;
+    align-items: center;
+}

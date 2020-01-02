@@ -1,0 +1,121 @@
+@charset "UTF-8";
+/*
+    SASS 基础
+ */
+/* 
+    全局使用导入文件建议下划线开头，这样不会被单独编译
+ */
+p,
+img,
+input,
+textarea {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #BCBFC3;
+    background: #F2F3F3;
+    border: 0;
+    border-color: #DEE0E1;
+}
+
+#app p {
+    color: #F5F800;
+}
+
+#app-extend, #app {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#app {
+    font-size: 24px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #DEE0E1;
+    background: #BCBFC3;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+#app {
+    color: #222C37;
+}
+
+body.weibo #app {
+    color: #F8F500;
+}
+
+#app p, #app {
+    background: #F60;
+}
+
+.container {
+    font-size: 20px/2;
+    width: 500px;
+    height: 500px;
+    min-height: 1000px / 500px;
+}
+
+.item-1 {
+    width: 2em;
+}
+
+.item-2 {
+    width: 4em;
+}
+
+.item-3 {
+    width: 6em;
+}
+
+.puma-icon {
+    background-image: url("/images/puma.png");
+    border: 2px solid black;
+    cursor: default;
+}
+
+.sea-slug-icon {
+    background-image: url("/images/sea-slug.png");
+    border: 2px solid blue;
+    cursor: pointer;
+}
+
+.egret-icon {
+    background-image: url("/images/egret.png");
+    border: 2px solid white;
+    cursor: move;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+.shadows {
+    -moz-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+    -webkit-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+    box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+}
+
+* html #logo {
+    background-image: url("/logo.gif");
+}

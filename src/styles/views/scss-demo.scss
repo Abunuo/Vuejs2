@@ -1,0 +1,119 @@
+/*
+    SASS 基础
+ */
+
+// 3. 导入SCSS文件
+@import './basic';
+
+// 1. 变量   区分变量作用域，块级变量只能在当前作用域使用
+$basic-color: #BCBFC3;
+$basic-background-color: #F2F3F3;
+body {
+    color: $basic-color;
+    background: $basic-background-color;
+    border: 0;
+    border-color: $BASIC-BORDER-COLOR;
+}
+#app {
+    $app-color: #F5F800;
+    p {
+        color: $app-color;
+    }
+}
+
+// 2. CSS 嵌套
+#app-extend {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#app {
+    font-size: 24px;
+    & {
+        color: #222C37;
+    }
+    body.weibo & {
+        color: #F8F500;
+    }
+    p, & {
+        background: #F60;
+    }
+    // 属性嵌套
+    border: {
+        width: 1px;
+        style: solid;
+        color: #DEE0E1;
+    }
+    background: #BCBFC3 {
+        position: center;
+        size: cover;
+    }
+    // 4，5 混合器&&引入混合器
+    @include _flex(column);
+    @include _border-radius;
+    // 6.继承器
+    // 1> 需要被继承的元素一定要放在继承的上方，防止属性覆盖
+    // 2> 继承的样式最好是单类，否则可能会有差错（会继承其类或 id、） 可以使用!optional解决
+    @extend #app-extend;
+}
+
+// 7.运算
+.container {
+    font-size: 20px/2;
+    $width: 1000px;
+    $height: 2;
+    $minHeight: 500px;
+    width: $width/2;
+    height: $width / $height;
+    min-height: #{$width} / #{$minHeight}
+}
+
+// 8.控制指令  变量必须 $ 开头
+// 1> @if   @else if    @else
+// 2> @for $var from <start> to <end>
+@for $i from 1 through 3 {
+    .item-#{$i} {
+        width: 2em * $i;
+    }
+}
+// 3> @each $var in <list>
+@each $animal, $color, $cursor in (puma, black, default),(sea-slug, blue, pointer),(egret, white, move) {
+    .#{$animal}-icon {
+        background-image: url('/images/#{$animal}.png');
+        border: 2px solid $color;
+        cursor: $cursor;
+    }
+}
+@each $header, $size in (h1: 2em, h2: 1.5em, h3: 1.2em) {
+    #{$header} {
+        font-size: $size;
+    }
+}
+// 4> @while
+
+
+// 9. 混合指令  为便于书写，@mixin 可以用 = 表示，而 @include 可以用 + 表示
+// 参数变量  
+@mixin box-shadow($shadows...) {
+    -moz-box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    box-shadow: $shadows;
+}
+.shadows {
+    @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+// 向混合样式中导入内容 使用 @content，相当于 vue 的 slot
+@mixin apply-to-ie6-only {
+    * html {
+        @content;
+    }
+}
+@include apply-to-ie6-only {
+    #logo {
+        background-image: url('/logo.gif');
+    }
+}
+
+// 10. 函数指令  @function  需要调用 @return 输出结果
+
