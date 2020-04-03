@@ -195,20 +195,11 @@
     			// template: '<h2>abc</h2>' //利用 template
 
     			render(createElement) { //安装 babel-plugin-transform-vue-jsx 后使用 jsx 模板
-    				return ( <
-    					div >
-    					<
-    					h2 > {
-    						this.$slots.default[0].text
-    					} + {
-    						this.$vnode.data.attrs.value
-    					} < /h2> <
-    					h2 > 等同于： {
-    						this.$slots.default[0].text
-    					} + {
-    						this.$attrs.value
-    					} < /h2> < /
-    					div >
+    				return (
+						<div>
+	    					<h2> { this.$slots.default[0].text } + { this.$vnode.data.attrs.value } </h2>
+							<h2> 等同于： { this.$slots.default[0].text } + { this.$attrs.value } </h2>
+						</div>
     				)
     			}
 
