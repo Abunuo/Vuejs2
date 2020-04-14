@@ -80,6 +80,9 @@
     			console.log('updated 周期触发：updateTotal: ' + val);
 				console.log(this.staticData);
     		})
+			this.$watch('staticData', function(newVal, oldVal) {
+    			console.log('监听 data(staticData) 触发' + oldVal + '->' + newVal);
+    		})
     		this.$watch('total', function(newVal, oldVal) {
     			console.log('监听 data(total) 触发' + oldVal + '->' + newVal);
     		})
@@ -111,7 +114,7 @@
 				eg.  v-longpress="() => showAT(longPressData)"
 			 */
 			'longpress': {
-                bind: function (el, binding, vNode) {
+                bind: (el, binding, vNode) => {
                     // Make sure expression provided is a function
                     if (typeof binding.value !== 'function') {
                         // Fetch name of component
