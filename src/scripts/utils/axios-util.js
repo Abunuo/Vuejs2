@@ -15,7 +15,7 @@ import Axios from 'axios';
 
 let baseURL = ''
 if(process.env.NODE_ENV === 'development') {
-    baseURL = 'https://m.modian.com';
+    baseURL = '';
 } else if(process.env.NODE_ENV === 'production'){
     baseURL = '';
 }
@@ -32,7 +32,6 @@ axios.interceptors.request.use(config => {
     // if(window.localStorage.getItem('MDUSERTOKEN')) {
     //     config.headers.token = window.localStorage.getItem('MDUSERTOKEN')
     // }
-    
     return config;
 }, error => {
     return Promise.reject(error)
