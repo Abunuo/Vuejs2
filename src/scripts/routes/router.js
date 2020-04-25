@@ -11,6 +11,7 @@ import html2canvas from '../views/html2canvas/route.js';
 import inputORscroll from '../views/inputORscroll/route.js';
 import viewport from '../views/viewport/route.js';
 import axios from '../views/axios/route.js';
+import form from '../views/form/route.js';
 
 /*
     mode： hash(#)(default)、history、abstract(node)
@@ -28,6 +29,7 @@ const router = new VueRouter({
       inputORscroll,
       viewport,
       axios,
+      form,
 
       error//404一定放在最下面
   ]
