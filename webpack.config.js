@@ -102,10 +102,10 @@ module.exports = {
 		//   _: 'lodash'
 		// }),
 		new webpack.HotModuleReplacementPlugin(), // 启用热替换模块(Hot Module Replacement)，也被称为 HMR。
-		new webpack.optimize.CommonsChunkPlugin({ //公共模块单独打包成 vendor 文件
-			name: ["vendor"],
-			minChunks: Infinity // 提取所有entry共同依赖的模块
-		}),
+		// new webpack.optimize.CommonsChunkPlugin({ //公共模块单独打包成 vendor 文件
+		// 	name: ["vendor"],
+		// 	minChunks: Infinity // 提取所有entry共同依赖的模块
+		// }),
 		new webpack.DefinePlugin({ //挂载全局变量
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
 		}),
