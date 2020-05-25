@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router';
+import store from '../store/store';
 
 import error from '../views/error/route.js';
 import index from '../views/index/route.js';
@@ -39,7 +40,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    // if (!auth.loggedIn()) {
+    // if (!store.auth.loggedIn()) {
     //   next({
     //     path: '/vuex',
     //     query: { redirect: to.fullPath }
