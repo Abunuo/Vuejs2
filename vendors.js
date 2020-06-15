@@ -11,5 +11,4 @@ module.exports = [
   'vue-resource',
   'debug',
   'axios'
-  
 ]
