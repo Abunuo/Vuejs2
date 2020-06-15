@@ -52,7 +52,7 @@
 		 * beforeRouteEnter 执行顺序：
 		 * beforeEnterRouter1 -> created -> mounted1[ -> mounted2] -> beforeEnterRouter2[ -> mounted2]
 		 * 注：当 mounted 用 nextTick 时，mounted2 执行顺序取决于 dom 绘制时间长短
-		 */
+		 */ 
 		beforeRouteEnter(to, from, next) {
 			console.log('beforeEnterRouter1',new Date().getTime());
 			next(vm => {
