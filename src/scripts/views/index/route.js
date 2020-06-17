@@ -14,7 +14,7 @@
  */
 /*
     2.按需加载当前组件 ---> 类似于上述方法
-    webpackChunkName： 生成文件的名
+    webpackChunkName： 生成文件的名 
 
     *** 注：会导致多进入一次 updated 周期（异步加载导致页面重绘）
     *** 组件不建议使用异步加载，导致多次进入 updated 周期
