@@ -34,6 +34,7 @@
 		</p>
 		<my-compontent :value="123">abunuo</my-compontent>
 		<div id="gradient" @click="staticUpdate"></div>
+		<button @click="tip" style="margin: 20px 0;">tip</button>
 	</div>
 </template>
 
@@ -176,6 +177,13 @@
 			},
 			showAT(longPressData) {
 				console.log(longPressData.content, longPressData.id)
+			},
+			tip() {
+				this.$message({
+					type: 'tip',
+					durations: 3000,
+					content: '冒个泡',
+				});
 			}
     	},
     	updated() {

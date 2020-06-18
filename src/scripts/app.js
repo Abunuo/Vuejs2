@@ -6,6 +6,9 @@ import VueRouter from 'vue-router';
 // import Axios from 'axios';
 // import VueAxios from 'vue-axios';
 
+// 自定义全局挂载组件
+import  Message from './components/message';
+
 // import _ from 'lodash';
 
 // 浏览器模拟控制台
@@ -28,6 +31,7 @@ if (process.env.NODE_ENV == 'production') {
 Vue.use(VueRouter);
 // Vue.use(VueAxios, Axios)
 // Vue.use(_);
+Vue.use(Message);
 
 
 //注册全局指令   获取该指令可以用 Vue.directive('my-directive')
