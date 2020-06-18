@@ -1,6 +1,6 @@
 # vuejs 
 
-## Project setup
+### Project setup
 ```
 npm install
 ```
