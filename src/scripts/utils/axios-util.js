@@ -29,6 +29,9 @@ const axios = Axios.create({
 axios.interceptors.request.use(config => {
     // 可以对请求的 headers 等修改
     
+    // 当 application/json 的时候不用对 data 数据做处理  浏览器显示 request payload
+    // 当 application/x-www-form-urencode 的时候。需要对 data 数据做 qs.stringfy(data)处理
+    
     // if(window.localStorage.getItem('MDUSERTOKEN')) {
     //     config.headers.token = window.localStorage.getItem('MDUSERTOKEN')
     // }
