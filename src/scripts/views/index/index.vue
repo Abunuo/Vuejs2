@@ -40,9 +40,11 @@
 
 <script>
     import Debug from 'debug';
-    //等同于 import，按需加载当前组件  注：会导致多进入一次 updated 周期（异步加载导致页面重绘）
-    //const buttonCounter = r => require.ensure([], () => r(require('../../components/buttonCounter.vue')), 'buttonCounter');
-    //const buttonCounter = () => import(/*webpackChunkName: 'buttonCounter'*/'../../components/buttonCounter.vue')
+    // 1. 等同于 import，按需加载当前组件  注：会导致多进入一次 updated 周期（异步加载导致页面重绘）
+		// 2. 异步组件的渲染本质上其实就是执行2次或者2次以上的渲染, 先把当前组件渲染为注释节点, 当组件加载成功后, 通过 forceRender 执行重新渲染。或者是渲染为注释节点, 
+		//       然后再渲染为loading节点, 在渲染为请求完成的组件
+    // const buttonCounter = r => require.ensure([], () => r(require('../../components/buttonCounter.vue')), 'buttonCounter');
+    // const buttonCounter = () => import(/*webpackChunkName: 'buttonCounter'*/'../../components/buttonCounter.vue')
     import buttonCounter from '../../components/buttonCounter.vue';
 
     const debug = Debug('vue:index');
