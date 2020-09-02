@@ -13,6 +13,7 @@ import inputORscroll from '../views/inputORscroll/route.js';
 import viewport from '../views/viewport/route.js';
 import axios from '../views/axios/route.js';
 import form from '../views/form/route.js';
+import upload from '../views/upload/route.js';
 
 /*
     mode： hash(#)(default)、history、abstract(node)
@@ -31,6 +32,7 @@ const router = new VueRouter({
       viewport,
       axios,
       form,
+      upload,
 
       error//404一定放在最下面
   ]

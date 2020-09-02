@@ -46,7 +46,14 @@ module.exports = {
 		    target: 'https://m.modian.com',
 		    secure: true,  // 允许 https
             changeOrigin: true,  // 允许跨域
-		  }
+		  },
+      '/node': {  // 配合 node 服务  /Users/monologue/Documents/workSpace/node/uploadFiles/serve.js
+        target: 'http://127.0.0.1:8888',
+        changeOrigin: true,  // 允许跨域
+        pathRewrite: {
+          '/node': ''
+        }
+      }
 		},
 		overlay: false, // 如果代码出错，会在浏览器页面弹出“浮动层”。类似于 vue-cli 等脚手架
 		https: false, //默认使用 http，可以修改为 https
