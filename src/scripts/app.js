@@ -6,8 +6,10 @@ import VueRouter from 'vue-router';
 // import Axios from 'axios';
 // import VueAxios from 'vue-axios';
 
-// 自定义全局挂载组件
-import  Message from './components/message';
+// 引入全局指令
+import './directives';
+// 自定义全局插件
+import './plugins';
 
 // import _ from 'lodash';
 
@@ -15,7 +17,7 @@ import  Message from './components/message';
 // import eruda from 'eruda';
 // eruda.init();
 
-import router from './routes/router.js';
+import router from './routes';
 import store from './store/store.js';
 
 //引入 debug，浏览器需要设置 localStorage.debug
@@ -31,7 +33,6 @@ if (process.env.NODE_ENV == 'production') {
 Vue.use(VueRouter);
 // Vue.use(VueAxios, Axios)
 // Vue.use(_);
-Vue.use(Message);
 
 
 //注册全局指令   获取该指令可以用 Vue.directive('my-directive')

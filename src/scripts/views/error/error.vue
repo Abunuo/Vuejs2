@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size: 30px">
+  <div style="font-size: 30px;text-align: center;">
     <p>NOT FOUND</p>
   </div>
 </template>

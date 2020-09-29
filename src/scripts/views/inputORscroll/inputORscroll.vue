@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <div class="container" @scroll="scrollCallback">
         <div class="input-inner">
             <label for="input">数字框</label>
@@ -49,15 +49,11 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
     .container {
         width: 100%;
         height: 100%;
         overflow: scroll;
-    }
-    .scrollwrap {
-        width: 100%;
-        height: 300%;
     }
     .input-inner {
         width: 50%;
@@ -70,5 +66,9 @@ export default {
         border: 1px solid #dee0e1;
         padding: 0 6px;
         margin-top: 10px;
+    }
+    .scrollwrap {
+      width: 100%;
+      height: 300%;
     }
 </style>
